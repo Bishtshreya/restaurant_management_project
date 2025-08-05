@@ -1,7 +1,7 @@
-from rest_framework.views import APIview
-from rest_framework.response import response
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-class MEnuAPIview(APIView):
+class MenuAPIView(APIView):
     def get(self, request):
         menu = [
             {"name": "Pasta", "description": "Creamy Alfredo pasta", "price": 250},
