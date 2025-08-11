@@ -1,5 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.conf import settings
+from django.shortcuts import render
 
 
 class MenuAPIView(APIView):
@@ -11,3 +13,6 @@ class MenuAPIView(APIView):
         ]
         return Response(menu)
 
+def homepage(request):
+    restro_name = settings.RESTRO_NAME
+    return render(request, 'home/index.html', {'restro_name': restro_name})
