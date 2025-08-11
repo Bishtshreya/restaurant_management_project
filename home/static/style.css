@@ -4,8 +4,8 @@ body{
     font-family: sans-serif;
     background-color: #f4f4f4;
     color: #333;
-
 }
+
 /* Heaader Styling*/
 header{
     background-color: #4caf50;
@@ -13,6 +13,7 @@ header{
     text-align: center;
     color: white;
 }
+
 /* navigation menu*/
 nav ul{
     list-style: none;
