@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Page</title>
+        <title>{{ restaurant_name }}</title>
     </head>
-    <body style="font-family:sans-serif; margin:0; background-color: #f4f4f4; color: #333">
-        <header style="background-color: #4caf50; padding: 15px; text-align: center; color: white;">
-            <h1 style="margin:0;">Welcome to my HomePage </h1>
+
+    <body style="font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4;">
+        <header style="background-color: #4CAF50; padding: 15px; text-align: center; color: white;">
+            <h1 style="margin: 0;">{{ restaurant_name }}</h1>
+            <nav>
+                <a href="/" style="color: white; margin: 0 10px;">Home</a>
+                <a href="/about/" style="color: white; margin: 0 10px;">About Us</a>
+            </nav>
         </header>
-
-        <main style="max-width: 800px; margin: 20px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="color: #4caf50;">About Us</h2>
-            <p style="line-height: 1.6"> This is the simple home page created to demonstrate inline css styling. We have added colors, padding, and imporved layout to make it visually appealing. </p>
-            <h2 style="color: #4caf50">Services</h2>
-            <ul style="padding-left:20px">
-                <li>Web Development</li>
-                <li>App Development</li>
-                <li>Ui/Ux Design </li>
-            </ul>
+        <main style="padding: 20px; text-align: center;">
+            <h2>Welcome to {{ restaurant_name }}</h2>
+            <p>Best food in town!</p>
         </main>
-
-        <footer style="text-align:center; padding: 10px; background-color: #222; color:#ccc;"> 
-            &copy; 2025 My Website. All rights reserved.
-        </footer>
     </body>
 </html>
