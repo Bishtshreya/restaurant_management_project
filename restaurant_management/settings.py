@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+RESTRO_NAME = "Shreya Kitchen"
+
 
 # Application definition
 
