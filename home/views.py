@@ -25,3 +25,12 @@ def about_us(request):
 def contact_us(request):
     return render(request, 'home/contact.html')
 
+def menu_items(request):
+    items = [
+        {"name": "Margherita Pizza", "price": 299, "description": "Classic cheese pizza with fresh tomato sauce."},
+        {"name": "Veg Burger", "price": 199, "description": "Crispy veg patty with lettuce and mayo."},
+        {"name": "Pasta Alfredo", "price": 349, "description": "Creamy white sauce pasta with herbs."},
+        {"name": "Cold Coffee", "price": 149, "description": "Chilled coffee served with ice cream."},
+    ]
+    return render(request, "menu.html", {"items": items})
+
