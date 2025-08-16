@@ -20,5 +20,8 @@ def homepage(request):
 
 def about_us(request):
     restaurant_name = getattr(settings, 'RESTAURANT_NAME', 'Our Restaurant')
-    return render(request, 'about.html', {'restaurant_name': restaurant_name})
+    return render(request, 'home/about.html', {'restaurant_name': restaurant_name})
+
+def contact_us(request):
+    return render(request, 'home/contact.html')
 
