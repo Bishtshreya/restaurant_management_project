@@ -14,7 +14,8 @@ class MenuAPIView(APIView):
         return Response(menu)
 
 def homepage(request):
-    restro_name = "Shreya Restro"
+    restro_name = settings.R
+    phone_number = 
     return render(request, 'home/index.html', {'restro_name': restro_name})
 
 def about_us(request):
