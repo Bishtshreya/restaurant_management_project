@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 RESTRO_NAME = "Shreya Kitchen"
+PHONE_NUMBER = "9182378743"
 
 
 # Application definition
@@ -76,6 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'restaurant_management.wsgi.application'
+
 
 
 # Database
