@@ -6,25 +6,24 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
 
-    <body style="font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4;">
-        <header style="background-color: #4CAF50; padding: 15px; text-align: center; color: white;">
+    <body>
+        <header>
             <!-- Logo -->
-            <div style="margin-bottom: 10px;">
-                <img src="{% static 'images/logo.png' %}" alt="Restaurant Logo"
-                    style="max-width: 120px; height: auto; border-radius: 8px;">
+            <div>
+                <img src="{% static 'images/logo.png' %}" alt="Restaurant Logo">
             </div>
                     
             <!-- Restaurant Name -->
-            <h1 style="margin: 0;">{{ restaurant_name }}</h1>
+            <h1>{{ restaurant_name }}</h1>
     
             <!-- Navigation -->
-            <nav style="margin-top: 8px;">
-                <a href="/" style="color: white; margin: 0 10px; text-decoration: none; font-weight: bold;">Home</a>
-                <a href="/about/" style="color: white; margin: 0 10px; text-decoration: none; font-weight: bold;">About Us</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="{% url 'about' %}">About Us</a>
             </nav>
         </header>
         
-        <main style="padding: 20px; text-align: center;">
+        <main>
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in town!</p>
             <span>Phone Number : {{ phone_number }}</span>
