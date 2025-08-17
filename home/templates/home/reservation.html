@@ -1,0 +1,118 @@
+[5 load st]atic %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reservations - {{ restaurant_name }}</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background: #f9f9f9;
+                color: #333;
+            }
+            header {
+                background: #4CAF50;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+            header h1 {
+                margin: 0;
+            }
+            nav {
+                margin-top: 8px;
+            }
+            nav a {
+                color: white;
+                margin: 0 12px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            main {
+                max-width: 600px;
+                margin: 40px auto;
+                padding: 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+            main h2 {
+                margin-bottom: 10px;
+                color: #333;
+            }
+            main p {
+                font-size: 16px;
+                color: #666;
+            }
+            form {
+                margin-top: 20px;
+                text-align: left;
+            }
+            form label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            form input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            form button {
+                width: 100%;
+                background: #4CAF50;
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            form button:hover {
+                background: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <!-- Header -->
+        <header>
+            <h1>{{ restaurant_name }}</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about/">About Us</a>
+                <a href="/reservations/">Reservations</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+        </header>
+        
+        <!-- Main Content -->
+        <main>
+            <h2>Reserve a Table</h2>
+            <p>Our online reservation system will be available soon.<br>
+                For now, please call us at <strong>{{ phone_number }}</strong> to book your table.</p>
+
+        <form>
+            <label>Name:</label>
+            <input type="text" placeholder="Your Name">
+
+            <label>Date:</label>
+            <input type="date">
+
+            <label>Time:</label>
+            <input type="time">
+
+            <label>Guests:</label>
+            <input type="number" min="1" placeholder="Number of Guests">
+
+            <button type="button">Reserve Now</button>
+        </form>
+    </main>
+
+</body>
+</html>
