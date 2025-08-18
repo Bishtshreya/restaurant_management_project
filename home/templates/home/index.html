@@ -15,7 +15,7 @@
                     
             <!-- Restaurant Name -->
             <h1>{{ restaurant_name }}</h1>
-    
+
             <!-- Navigation -->
             <nav>
                 <a href="/">Home</a>
@@ -27,6 +27,15 @@
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in town!</p>
             <span>Phone Number : {{ phone_number }}</span>
+
+            <!-- Search Bar -->
+            <section>
+                <h3>Search Menu</h3>
+                <form method="get" action="">
+                    <input type="text" name="q" placeholder="Search for menu items..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
         </main>
         <footer>
             <p>&copy; {{ year }} Our Restaurant. All Rights Reserved.</p>
