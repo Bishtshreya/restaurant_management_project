@@ -24,6 +24,7 @@ def homepage(request):
         return render(request, 'home/index.html', {
         'restro_name': restro_name,
         'phone_number': phone_number
+        'restr'
     })
 
     except Exception as e:
