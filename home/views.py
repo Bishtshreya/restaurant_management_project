@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import MenuList
+from .forms import ContactForm
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -38,8 +39,15 @@ def about_us(request):
         return JsonResponse({"error": "Failed to load About Us page", "details": str(e)}, status=500)
 
 def contact_us(request):
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    form = ContactForm()
     try:
-        return render(request, 'home/contact.html')
+        return render(request, 'home/contact.html', {"form": form})
     except Exception as e:
         return JsonResponse({"error": "Failed to load Contact Us page", "details": str(e)}, status=500)
 
