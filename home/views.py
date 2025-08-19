@@ -18,7 +18,7 @@ class MenuAPIView(APIView):
 
 def homepage(request):
     try:
-        restro_name = getattr(settings, 'RESTRO_NAME', 'My Restaurant')
+        restro_name = getattr(settings, 'RESTRO_NAME', 'Shreya Restro')
         phone_number = getattr(settings, 'PHONE_NUMBER', 'N/A')
         return render(request, 'home/index.html', {
         'restro_name': restro_name,
