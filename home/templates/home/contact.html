@@ -71,20 +71,14 @@
                     <p><strong>Address:</strong> 123 Main Street, Dehradun, India</p>
                     </div>
                     
-                    <form id="contactForm">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name">
-                        <div id="nameError" class="error"></div>
-                        
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email">
-                        <div id="emailError" class="error"></div>
-                        
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message"></textarea>
-                        
-                        <button type="submit">Send</button>
-                        </form>
+                        <section id="contact">
+                            <h2>Contact Us</h2>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit">Submit</button>
+                            </form>
+                        </section>
                         
                         <script>
                         document.getElementById("contactForm").addEventListener("submit", function(event) {
