@@ -3,7 +3,7 @@ from rest_framework.response import response
 from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import 
+from .models import MenuList
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -44,12 +44,7 @@ def contact_us(request):
 
 def menu_items(request):
     try:
-        items = [
-            {"name": "Margherita Pizza", "price": 299, "description": "Classic cheese pizza with fresh tomato sauce."},
-            {"name": "Veg Burger", "price": 199, "description": "Crispy veg patty with lettuce and mayo."},
-            {"name": "Pasta Alfredo", "price": 349, "description": "Creamy white sauce pasta with herbs."},
-            {"name": "Cold Coffee", "price": 149, "description": "Chilled coffee served with ice cream."},
-        ]
+        items = MenuList.objects.all()
         return render(request, "menu.html", {"items": items})
     except Exception as e:
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
