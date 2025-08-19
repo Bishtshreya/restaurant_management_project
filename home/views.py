@@ -23,8 +23,8 @@ def homepage(request):
         phone_number = getattr(settings, 'PHONE_NUMBER', 'N/A')
         return render(request, 'home/index.html', {
         'restro_name': restro_name,
-        'phone_number': phone_number
-        'restr'
+        'phone_number': phone_number,
+        'restaurant_address': "Haldwani, Uttarakhand"
     })
 
     except Exception as e:
