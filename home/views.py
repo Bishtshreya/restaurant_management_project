@@ -20,18 +20,15 @@ class MenuAPIView(APIView):
             return Response({"error": "Unable to fetch menu", "details": str(e)}, status=500)
 
 def homepage(request):
-    try:
-        restro_name = getattr(settings, 'RESTRO_NAME', 'Shreya Restro')
-        phone_number = getattr(settings, 'PHONE_NUMBER', 'N/A')
-        return render(request, 'home/index.html', {
-        'restro_name': restro_name,
-        'phone_number': phone_number,
-        'restaurant_address': "Haldwani, Uttarakhand"
-    })
-
-    except Exception as e:
-        return JsonResponse({"error": "Failed to load homepage", "details": str(e)}, status=500)
-
+    restaurant_location = RestaurantLocation.objects.first()  # Get first location (assuming only one)
+    context = {
+        "restaurant_name": "Shreya Restaurant",
+        "phone_number": "+91 9876543210",
+        "restaurant_location": restaurant_location,
+        "year": 2025
+    }
+    return render(request, "home.html", context)
+    
 def about_us(request):
     try:
         restaurant_name = getattr(settings, 'RESTAURANT_NAME', 'Our Restaurant')
