@@ -44,6 +44,7 @@ def contact_us(request):
             form.save()
 
     form = ContactForm()
+    
     try:
         return render(request, 'home/contact.html', {"form": form})
     except Exception as e:
