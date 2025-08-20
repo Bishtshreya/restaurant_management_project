@@ -36,9 +36,15 @@
                     <button type="submit">Search</button>
                 </form>
             </section>
+
             <section id="location">
                 <h2>Find Us</h2>
-                <p>{{ restaurant_address }}</p>
+                <p>
+                    {{ restaurant_location.address }},
+                    {{ restaurant_location.city }},
+                    {{ restaurant_location.state }} -
+                    {{ restaurant_location.zip_code }}
+                </p>    
 
                 <!-- Embedded Google Map -->
                 <div class="map-container">
@@ -51,8 +57,8 @@
                     </iframe>
                 </div>
             </section>
-
         </main>
+
         <footer>
             <p>&copy; {{ year }} Shreya Restaurant. All Rights Reserved.</p>
             <p><strong>Opening Hours:</strong> Mon-Fri: 11am - 9pm | Sat-Sun: 10am - 10pm</p>
