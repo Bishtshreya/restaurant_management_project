@@ -18,13 +18,19 @@
             </nav>
         </header>
         <main>
-            {% for item in items %}
-            <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; border-radius: 8px;">
-                <h2>{{ item.name }}</h2>
-                <p>{{ item.description }}</p>
-                <p><strong>Price:</strong> {{ item.price }}</p>
+            <div class="menu-container">
+                {% for item in items %}
+                <div class="menu-item">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="menu-item-image">
+                    {% endif %}
+                    <h2>{{ item.name }}</h2>
+                    <p>{{ item.description }}</p>
+                    <p class="price"><strong>Price:</strong> {{ item.price }}</p>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
         </main>
         <footer>
             <p>&copy; 2025 Foodie's Paradise</p>
