@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import MenuList
 from .forms import ContactForm
+from .models import Restaurantlocation
 
 class MenuAPIView(APIView):
     def get(self, request):
