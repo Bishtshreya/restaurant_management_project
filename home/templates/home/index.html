@@ -49,6 +49,21 @@
                     <input type="text" name="q" placeholder="Search for menu items..." required>
                     <button type="submit">Search</button>
                 </form>
+                {% if query %}
+                    <h4>Search Results for "{{ query }}"</h4>
+                    {% if search_results %}
+                        <ul>
+                            {% for item in search_results %}
+                                <li>
+                                    <strong>{{ item.name }}</strong> - {{ item.description }} ({{ item.price }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No results found.</p>
+                    {% endif %}
+                {% endif %}
+
             </section>
 
             <section id="location">
