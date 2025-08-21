@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.contrib import messages
 from .models import MenuList, RestaurantLocation
 from .forms import ContactForm
 
@@ -37,14 +39,25 @@ def about_us(request):
         return JsonResponse({"error": "Failed to load About Us page", "details": str(e)}, status=500)
 
 def contact_us(request):
-
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            contact = form.save()
+            #  Send email notification
+            subject = f"New Contact Message from {contact.name}"
+            message = f"Name: {contact.name}\nEmail: {contact.email}\n\nMessage:\n{contact.message}"
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [settings.CONTACT_EMAIL]  # configure in settings.py
 
+            try:
+                send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+                messages.success(request, "Your message has been sent successfully!")
+            except Exception as e:
+                messages.error(request, f"Failed to send email: {e}")
+
+    else:       
     form = ContactForm()
-    
+
     try:
         return render(request, 'home/contact.html', {"form": form})
     except Exception as e:
