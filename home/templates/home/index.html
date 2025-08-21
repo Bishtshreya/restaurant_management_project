@@ -28,6 +28,20 @@
             <p>Best food in town!</p>
             <span>Phone Number : {{ phone_number }}</span>
 
+            <!--  Restaurant Location -->
+            {% if restaurant_location %}
+            <section id="location">
+                <h2>Find Us</h2>
+                <p>
+                    {{ restaurant_location.address }},
+                    {{ restaurant_location.city }},
+                    {{ restaurant_location.state }} --{{ restaurant_location.zip_code }}
+                </p>
+            </section>
+            {% else %}
+                <p>Address not available</p>
+            {% endif %}
+
             <!-- Search Bar -->
             <section>
                 <h3>Search Menu</h3>
