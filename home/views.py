@@ -23,11 +23,20 @@ class MenuAPIView(APIView):
 
 def homepage(request):
     restaurant_location = RestaurantLocation.objects.first()  # Get first location (assuming only one)
+    
+    #basic search functionality
+    query = request.GET.get("q")
+    search_results = None
+    if query:
+        search_results = MenuList.objects.filter(name__icontains=query)
+
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": "+91 9876543210",
         "restaurant_location": restaurant_location,
         "year": 2025
+        "search_results": search_results,
+        "query": query
     }
     return render(request, "home.html", context)
     
