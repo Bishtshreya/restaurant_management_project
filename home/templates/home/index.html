@@ -26,11 +26,7 @@
         <main>
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in town!</p>
-
-            <!--  Restaurant Phone Number -->
-            {% if restaurant_location.phone_number %}
-                <span>Phone Number : {{ restaurant_location.phone_number }}</span>
-            {% endif %}
+            <span>Phone Number : {{phone_number}}</span>
 
             <!--  Restaurant Location -->
             {% if restaurant_location %}
