@@ -52,7 +52,6 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             contact = form.save()
-            #  Send email notification
             subject = f"New Contact Message from {contact.name}"
             message = f"Name: {contact.name}\nEmail: {contact.email}\n\nMessage:\n{contact.message}"
             from_email = settings.DEFAULT_FROM_EMAIL
@@ -65,7 +64,7 @@ def contact_us(request):
                 messages.error(request, f"Failed to send email: {e}")
 
     else:       
-    form = ContactForm()
+        form = ContactForm()
 
     try:
         return render(request, 'home/contact.html', {"form": form})
