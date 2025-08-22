@@ -6,104 +6,105 @@
         <title>Contact Us</title>
         <style>
             body{
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f9f9f9;
             }
             h1 {
-            text-align: center;
+                text-align: center;
             }
             .info {
-            max-width: 500px;
-            margin: 0 auto 20px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                max-width: 500px;
+                margin: 0 auto 20px;
+                background: #fff;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             }
             form {
-            max-width: 500px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px(0,0,0,0.1);
+                max-width: 500px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px(0,0,0,0.1);
             }
             label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
+                display: block;
+                margin-top: 10px;
+                font-weight: bold;
             }
             input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
             }
             button {
-            margin-top: 15px;
-            padding: 10px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
+                margin-top: 15px;
+                padding: 10px;
+                background: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
             }
             button:hover {
-            background: #0056b3;
+                background: #0056b3;
             }
             .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
             }
-            </style>
-            </head>
-            <body>
-                <h1>Contact Us</h1>
+        </style>
+    </head>
+    
+    <body>
+        <h1>Contact Us</h1>
+        
+        <div class="info">
+            <p><strong>Restaurant Name:</strong> Foodie's Paradise</p>
+            <p><strong>Phone:</strong> +91-9876543210</p>
+            <p><strong>Email:</strong> contact@foodiesparadise.com</p>
+            <p><strong>Address:</strong> 123 Main Street, Dehradun, India</p>
+        </div>
+            
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        </section>
                 
-                <div class="info">
-                    <p><strong>Restaurant Name:</strong> Foodie's Paradise</p>
-                    <p><strong>Phone:</strong> +91-9876543210</p>
-                    <p><strong>Email:</strong> contact@foodiesparadise.com</p>
-                    <p><strong>Address:</strong> 123 Main Street, Dehradun, India</p>
-                    </div>
-                    
-                        <section id="contact">
-                            <h2>Contact Us</h2>
-                            <form method="POST">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-                                <button type="submit">Submit</button>
-                            </form>
-                        </section>
-                        
-                        <script>
-                        document.getElementById("contactForm").addEventListener("submit", function(event) {
-                        let isValid = true;
-                        
-                        // Clear previous errors
-                        document.getElementById("nameError").textContent = "";
-                        document.getElementById("emailError").textContent = "";
-                        
-                        // Validate nameconst name = document.getElementById("name").value.trim();
-                        if (name === "") {
-                        document.getElementById("nameError").textContent = "Please enter your name.";
-                        isValid = false;
-                        }
-                        
-                        // Validate emailconst email = document.getElementById("email").value.trim();
-                        if (email === "") {
-                        document.getElementById("emailError").textContent = "Please enter your email.";
-                        isValid = false;
-                        }
-                        
-                        if (!isValid) {
-                        event.preventDefault(); // Stop form submission
-                        }
-                        });
-                    </script>
-                </body>
-            </html>
+        <script>
+            document.getElementById("contactForm").addEventListener("submit", function(event) {
+                let isValid = true;
+                
+                // Clear previous errors
+                document.getElementById("nameError").textContent = "";
+                document.getElementById("emailError").textContent = "";
+                
+                // Validate nameconst name = document.getElementById("name").value.trim();
+                if (name === "") {
+                    document.getElementById("nameError").textContent = "Please enter your name.";
+                    isValid = false;
+                }
+                
+                // Validate emailconst email = document.getElementById("email").value.trim();
+                if (email === "") {
+                    document.getElementById("emailError").textContent = "Please enter your email.";
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    event.preventDefault(); // Stop form submission
+                }
+            });
+        </script>
+    </body>
+</html>
