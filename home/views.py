@@ -43,7 +43,17 @@ def homepage(request):
 def about_us(request):
     try:
         restaurant_name = getattr(settings, 'RESTAURANT_NAME', 'Our Restaurant')
-        return render(request, 'home/about.html', {'restaurant_name': restaurant_name})
+        mission = "To serve delicious food made from the freshest ingredients while offering warm hospitality."
+        history = (
+            f"{restaurant_name} started as a small family-run business with a love for food and community. "
+            "Over the years, it has grown into a favorite local spot where people come to relax and enjoy quality meals."
+        )
+        context = {
+                "restaurant_name": restaurant_name,
+                "mission": mission,
+                "history": history,
+        }
+        return render(request, 'about.html', context)
     except Exception as e:
         return JsonResponse({"error": "Failed to load About Us page", "details": str(e)}, status=500)
 
