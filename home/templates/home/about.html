@@ -7,62 +7,61 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
         <style>
             body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #f4f4f4;
             }
             header {
-            background-color: #4CAF50;
-            padding: 15px;
-            text-align: center;
-            color: white;
+                background-color: #4CAF50;
+                padding: 15px;
+                text-align: center;
+                color: white;
             }
             header nav a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
+                color: white;
+                margin: 0 10px;
+                text-decoration: none;
             }
             main {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+                max-width: 800px;
+                margin: 20px auto;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
             }
             h1, h2 {
-            margin-top: 0;
+                margin-top: 0;
             }
             .restaurant-image {
-            width: 100%;
-            border-radius: 8px;
-            margin: 15px 0;
+                width: 100%;
+                border-radius: 8px;
+                margin: 15px 0;
             }
             p {
-            line-height: 1.6;
+                line-height: 1.6;
             }
-            </style>
-            </head>
-            <body>
+        </style>
+    </head>
+    <body>
                 
-                <header>
-                    <h1>{{ restaurant_name }}</h1>
-                    <nav>
-                        <a href="/">Home</a>
-                        <a href="{% url 'about' %}">About Us</a>
-                        </nav>
-                        </header>
+        <header>
+            <h1>{{ restaurant_name }}</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="{% url 'about' %}">About Us</a>
+            </nav>
+        </header>
                         
-                        <main>
-                            <h2>About Us</h2>
-                            <img src="https://via.placeholder.com/800x300" alt="Restaurant Image" class="restaurant-image">
+        <main>
+            <h2>About Us</h2>
+            <img src="https://via.placeholder.com/800x300" alt="Restaurant Image" class="restaurant-image">
+            
+            <h3>Our Mission</h3>
+            <p>{{ mission }}</p>
+            
+            <h3>Our History</h3>
+            <p>{{ history }}</p>
+        </main>
                             
-                            <h3>Our Mission</h3>
-                            <p>{{ mission }}</p>
-                            
-                            <h3>Our History</h3>
-                            <p>{{ history }}</p>
-                            </main>
-                            
-                            </body>
-                            </html>
-                            }}}}}}}
+    </body>
+</html>
