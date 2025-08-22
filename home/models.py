@@ -19,6 +19,7 @@ class MenuList(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
+    message = models.TextField(blank=False)
 
     def __str__(self):
         return self.name
