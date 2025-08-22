@@ -28,7 +28,7 @@
             <p>Best food in town!</p>
 
             <!--  Restaurant Phone Number -->
-            {% if restaurant_location.phone_number %}
+            {% if restaurant_location and restaurant_location.phone_number %}
                 <span>Phone Number : {{ restaurant_location.phone_number }}</span>
             {% endif %}
 
