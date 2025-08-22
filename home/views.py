@@ -29,7 +29,10 @@ def homepage(request):
     search_results = None
     if query:
         search_results = MenuList.objects.filter(name__icontains=query)
-
+    # get cart from session 
+    cart =  request.session.get("cart", {})
+    total_items_in_cart = sum(cart.values()) 
+    
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": "+91 9876543210",
@@ -37,6 +40,7 @@ def homepage(request):
         "year": 2025
         "search_results": search_results,
         "query": query
+        "cart_count": total_items_in_cart,
     }
     return render(request, "home.html", context)
     
