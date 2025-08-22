@@ -1,23 +1,68 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <title>About Us - {{ restaurant_name }}</title>
-    </head>
-    <body style="font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4;">
-        <header style="background-color: #4CAF50; padding: 15px; text-align: center; color: white;">
-            <h1 style="margin: 0;">{{ restaurant_name }}</h1>
-            <nav>
-                <a href="/" style="color: white; margin: 0 10px;">Home</a>
-                <a href="/about/" style="color: white; margin: 0 10px;">About Us</a>
-            </nav>
-        </header>
-        <main style="max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px;">
-            <h2>About Us</h2>
-            <img src="https://via.placeholder.com/800x300" alt="Restaurant Image" style="width: 100%; border-radius: 8px;">
-            <p style="line-height: 1.6; margin-top: 15px;">
-                Welcome to {{ restaurant_name }}, where we serve delicious meals made with fresh ingredients.
-                Our passion for food and hospitality ensures that every guest leaves with a smile.
-            </p>
-        </main>
-    </body>
-</html>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            }
+            header {
+            background-color: #4CAF50;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            }
+            header nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            }
+            main {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            }
+            h1, h2 {
+            margin-top: 0;
+            }
+            .restaurant-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            }
+            p {
+            line-height: 1.6;
+            }
+            </style>
+            </head>
+            <body>
+                
+                <header>
+                    <h1>{{ restaurant_name }}</h1>
+                    <nav>
+                        <a href="/">Home</a>
+                        <a href="{% url 'about' %}">About Us</a>
+                        </nav>
+                        </header>
+                        
+                        <main>
+                            <h2>About Us</h2>
+                            <img src="https://via.placeholder.com/800x300" alt="Restaurant Image" class="restaurant-image">
+                            
+                            <h3>Our Mission</h3>
+                            <p>{{ mission }}</p>
+                            
+                            <h3>Our History</h3>
+                            <p>{{ history }}</p>
+                            </main>
+                            
+                            </body>
+                            </html>
+                            }}}}}}}
