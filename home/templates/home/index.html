@@ -8,11 +8,16 @@
 
     <body>
         <header>
+            
             <!-- Logo -->
             <div>
-                <img src="{% static 'images/logo.png' %}" alt="Restaurant Logo">
+                {% if restaurant_location and restaurant_location.logo %}
+                    <img src="{{ restaurant_location.logo.url }}" alt="Restaurant Logo" style="max-height:120px;">
+                {% else %}
+                    <img src="{% static 'images/logo.png' %}" alt="Default Restaurant Logo" style="max-height:120px;">
+                {% endif %}
             </div>
-                    
+           
             <!-- Restaurant Name -->
             <h1>{{ restaurant_name }}</h1>
 
