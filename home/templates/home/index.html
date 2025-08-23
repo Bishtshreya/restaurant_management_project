@@ -1,4 +1,5 @@
 {% load static %}
+{% load tz %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,6 +24,16 @@
             .breadcrumbs span {
                 color: #555;
                 margin: 0 5px;
+            }
+            /* Date & Time section */
+            .datetime {
+                margin: 20px 0;
+                padding: 10px;
+                background: #f9f9f9;
+                border-left: 4px solid #007bff;
+                font-size: 1rem;
+                color: #333;
+                display: inline-block;
             }
         </style>
     </head>
@@ -66,7 +77,13 @@
         
         <main>
             <h2>Welcome to {{ restaurant_name }}</h2>
-            <p>Best food in town!</p>
+            <p>Best food in town!</p> 
+
+            <!-- Current Date and Time -->
+            <div class="datetime">
+                Today is {% now "l, F j, Y" %} <br>
+                Current Time: {% now "h:i A" %}
+            </div>
 
             <!--  Restaurant Phone Number -->
             {% if restaurant_location and restaurant_location.phone_number %}
