@@ -36,15 +36,15 @@ def homepage(request):
     
     context = {
         "restaurant_name": "Shreya Restaurant",
-        "phone_number": "+91 9876543210",
+        "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
         "restaurant_location": restaurant_location,
-        "year": 2025
+        "year": timezone.now(.year),
         "search_results": search_results,
-        "query": query
+        "query": query,
         "cart_count": total_items_in_cart,
         "current_datetime": timezone.now(),
     }
-    return render(request, "home.html", context)
+    return render(request, "index.html", context)
     
 def about_us(request):
     try:
