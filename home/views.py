@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from .models import MenuList, RestaurantLocation
 from .forms import ContactForm
+from datetime import datetime
 
 
 class MenuAPIView(APIView):
@@ -92,4 +93,14 @@ def menu_items(request):
         return render(request, "menu.html", {"items": items})
     except Exception as e:
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
+        
+def faq_view(request):
+    return render(request, "faq.html", {
+        "restaurant_name": "Shreya Restaurant",
+        "restaurant_location": {
+            "phone_number": "+91-9876543210"
+        },
+        "year": datetime.now().year,
+        "current_page": "FAQ"
+    })       
 
