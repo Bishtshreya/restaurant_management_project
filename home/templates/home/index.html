@@ -53,6 +53,13 @@
             <!-- Restaurant Name -->
             <h1>{{ restaurant_name }}</h1>
 
+            <!-- Phone Number -->
+            {% if phone_number %}
+            <div class="phone-number">
+                Call Us: <strong>{{ phone_number }}</strong>
+            </div>
+            {% endif %}
+
             <!--Welcome Message-->
             <p class="welcome-message">Serving happiness on every plate - where taste meets tradition!</p>
 
