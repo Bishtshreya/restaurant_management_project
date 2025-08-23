@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FAQ - {{ restaurant_name }}</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <style>
+            .faq-container {
+                max-width: 800px;
+                margin: 30px auto;
+                padding: 20px;
+            }
+            .faq-item {
+                margin-bottom: 20px;
+            }
+            .faq-item h3 {
+                color: #007BFF;
+                margin-bottom: 5px;
+            }
+            .faq-item p {
+                margin: 0;
+                color: #444;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>{{ restaurant_name }} - Frequently Asked Questions</h1>
+        </header>
+                    
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="/">Home</a> &gt; <span>FAQ</span>
+        </div>
+    
+        <main class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>1. What are your opening hours?</h3>
+                <p>We are open Monday to Friday: 11am - 9pm, and Saturday to Sunday: 10am - 10pm.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>2. Do you offer home delivery?</h3>
+                <p>Yes, we provide home delivery within a 5km radius of our restaurant.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>3. How can I contact you?</h3>
+                <p>You can reach us at {{ restaurant_location.phone_number }} or visit our Contact Us page.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>4. Do you offer vegetarian options?</h3>
+                <p>Absolutely! We have a wide range of vegetarian and vegan dishes.</p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; {{ year }} {{ restaurant_name }}. All Rights Reserved.</p>
+        </footer>
+    </body>
+</html>
