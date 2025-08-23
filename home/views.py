@@ -56,6 +56,7 @@ def about_us(request):
                 "restaurant_name": restaurant_name,
                 "mission": mission,
                 "history": history,
+                "cart_count": cart_count,
         }
         return render(request, 'about.html', context)
     except Exception as e:
