@@ -42,6 +42,7 @@ def homepage(request):
         "search_results": search_results,
         "query": query
         "cart_count": total_items_in_cart,
+        "current_datetime": timezone.now(),
     }
     return render(request, "home.html", context)
     
