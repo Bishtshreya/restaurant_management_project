@@ -94,6 +94,9 @@ def menu_items(request):
         return render(request, "menu.html", {"items": items})
     except Exception as e:
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
         
 def faq_view(request):
     return render(request, "faq.html", {
