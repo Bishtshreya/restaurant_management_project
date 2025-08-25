@@ -127,8 +127,15 @@ def order_confirmation(request):
         "cart_count": total_items_in_cart,
         "year": timezone.now().year,
     }
-        return render(request, "order_confirmation.html", context) 
-        
+        return render(request, "order_confirmation.html", context)
+
+def order_page(request):
+    # For now just a placeholder page
+    return render(request, "orders/order_page.html", {
+        "year": timezone.now().year,
+        "cart_count": sum(request.session.get("cart", {}).values()),
+    })
+
 def faq_view(request):
     return render(request, "faq.html", {
         "restaurant_name": "Shreya Restaurant",
