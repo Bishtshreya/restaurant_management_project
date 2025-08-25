@@ -10,6 +10,7 @@ from .models import MenuList, RestaurantLocation
 from .forms import ContactForm
 from datetime import datetime
 from django.urls import reverse
+import random
 
 
 class MenuAPIView(APIView):
@@ -113,6 +114,20 @@ def privacy_policy(request):
     return render(request, 'privacy_policy.html', {
     "year": timezone.now().year
     })
+
+def order_confirmation(request):
+    # Generate a dummy order number (in real app this comes from DB)
+    order_number = random.randint(10000, 99999)
+
+    cart = request.session.get("cart", {})
+    total_items_in_cart = sum(cart.values())
+
+    context = {
+        "order_number": order_number,
+        "cart_count": total_items_in_cart,
+        "year": timezone.now().year,
+    }
+        return render(request, "order_confirmation.html", context) 
         
 def faq_view(request):
     return render(request, "faq.html", {
