@@ -84,7 +84,25 @@
         
         <main>
             <h2>Welcome to {{ restaurant_name }}</h2>
-            <p>Best food in town!</p> 
+            <p>Best food in town!</p>
+
+            <!--  Login Form Section -->
+            {% if not request.user.is_authenticated %}
+            <section id="login">
+                <h3>Login</h3>
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </section>
+            {% else %}
+            <p>Welcome back, {{ request.user.username }}!
+                <a href="{% url 'logout' %}">Logout</a>
+            </p>
+            {% endif %}
+            <!--  End Login Form -->
 
             <!-- Current Date and Time -->
             <div class="datetime">
