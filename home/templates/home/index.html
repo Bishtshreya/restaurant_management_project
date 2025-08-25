@@ -86,6 +86,11 @@
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in town!</p>
 
+            <!--  Order Now Button -->
+            <div class="order-now">
+                <a href="{% url 'order' %}" class="order-btn">Order Now</a>
+            </div>
+
             <!--  Login Form Section -->
             {% if not request.user.is_authenticated %}
             <section id="login">
