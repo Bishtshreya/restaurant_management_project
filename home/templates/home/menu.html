@@ -7,6 +7,27 @@
         <meta charset="UTF-8">
         <title>Our Menu</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <style>
+            /* Breadcrumb styles */
+            .breadcrumbs {
+                margin: 15px 0;
+                padding: 8px 12px;
+                background: #f5f5f5;
+                border-radius: 6px;
+                font-size: 0.95rem;
+            }
+            .breadcrumbs a {
+                text-decoration: none;
+                color: #007bff;
+            }
+            .breadcrumbs a:hover {
+                text-decoration: underline;
+            }
+            .breadcrumbs span {
+                color: #555;
+                margin: 0 5px;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -17,6 +38,13 @@
                 <a href="{% url 'contact' %}">Contact</a>
             </nav>
         </header>
+        
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a>
+            <span>&gt;</span> <span>Menu</span>
+        </nav>
+
         <main>
             <div class="menu-container">
                 {% for item in items %}
