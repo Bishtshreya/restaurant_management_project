@@ -5,9 +5,11 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.utlis import timezone
 from .models import MenuList, RestaurantLocation
 from .forms import ContactForm
 from datetime import datetime
+from django.urls import reverse
 
 
 class MenuAPIView(APIView):
@@ -38,7 +40,7 @@ def homepage(request):
         "restaurant_name": "Shreya Restaurant",
         "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
         "restaurant_location": restaurant_location,
-        "year": timezone.now(.year),
+        "year": timezone.now().year,
         "search_results": search_results,
         "query": query,
         "cart_count": total_items_in_cart,
@@ -54,6 +56,10 @@ def about_us(request):
             f"{restaurant_name} started as a small family-run business with a love for food and community. "
             "Over the years, it has grown into a favorite local spot where people come to relax and enjoy quality meals."
         )
+        #  added cart_count so breadcrumbs/footer match homepage
+        cart = request.session.get("cart", {})
+        total_items_in_cart = sum(cart.values())
+
         context = {
                 "restaurant_name": restaurant_name,
                 "mission": mission,
@@ -84,7 +90,15 @@ def contact_us(request):
         form = ContactForm()
 
     try:
-        return render(request, 'home/contact.html', {"form": form})
+        #  added cart_count here too
+        cart = request.session.get("cart", {})
+        total_items_in_cart = sum(cart.values())
+
+        return render(request, 'home/contact.html', {
+            "form": form,
+            "cart_count": total_items_in_cart,
+            "year": timezone.now().year,
+            })
     except Exception as e:
         return JsonResponse({"error": "Failed to load Contact Us page", "details": str(e)}, status=500)
 
@@ -96,7 +110,9 @@ def menu_items(request):
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
 
 def privacy_policy(request):
-    return render(request, 'privacy_policy.html')
+    return render(request, 'privacy_policy.html', {
+    "year": timezone.now().year
+    })
         
 def faq_view(request):
     return render(request, "faq.html", {
@@ -105,6 +121,7 @@ def faq_view(request):
             "phone_number": "+91-9876543210"
         },
         "year": datetime.now().year,
+        "cart_count": sum(request.session.get("cart", {}).values()),
         "current_page": "FAQ"
     })       
 
