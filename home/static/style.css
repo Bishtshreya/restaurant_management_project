@@ -50,3 +50,26 @@ footer{
     color: #ccc;
     margin-top: 20px;
 }
+
+/*  Order Now Button */
+.order-now {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.order-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #28a745;  /* green */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.order-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
