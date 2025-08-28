@@ -4,13 +4,54 @@
 <head>
     <title>Feedback</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .feedback-wrap { max-width: 700px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);}
+        .feedback-wrap h1 { margin-top: 0; }
+        .feedback-form label { font-weight: 600; display:block; margin: 10px 0 6px; }
+        .feedback-form input[type="text"], .feedback-form textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+        .feedback-form button { margin-top: 14px; padding: 10px 18px; border: 0; border-radius: 8px; background: #28a745; color: #fff; font-weight: 700; cursor: pointer; }
+        .feedback-form button:hover { background: #218838; }
+        .feedback-list { margin-top: 24px; }
+        .feedback-item { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .feedback-item small { color: #666; }
+        .messages { margin: 10px auto; max-width: 700px; }
+        .messages .success { background: #e6ffed; border-left: 4px solid #28a745; padding: 10px 12px; border-radius: 6px; }
+        .back-home { display:inline-block; margin: 20px 0 0; }
+    </style>
 </head>
 <body>
-    <h1>Leave Your Feedback</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <!-- Django messages -->
+    <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="feedback-wrap">
+        <h1>Leave Your Feedback</h1>
+        <form method="post" class="feedback-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if recent_feedback %}
+            <div class="feedback-list">
+                <h3>Recent Feedback</h3>
+                {% for f in recent_feedback %}
+                    <div class="feedback-item">
+                        <strong>{{ f.name }}</strong>
+                        <small>  {{ f.created_at|date:"M d, Y h:i A" }}</small>
+                        <div>{{ f.message|linebreaksbr }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <a class="back-home" href="/"> Back to Home</a>
+    </div>
 </body>
 </html>
+
