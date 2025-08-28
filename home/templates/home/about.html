@@ -54,8 +54,11 @@
                         
         <main>
             <h2>About Us</h2>
-            <img src="https://via.placeholder.com/800x300" alt="Restaurant Image" class="restaurant-image">
-            
+            {# Dynamic restaurant image from model #}
+            {% if about.image %}
+                <img src="{{ about.image.url }}" alt="Restaurant Image" class="restaurant-image">
+            {% endif %}
+
             <h3>Our Mission</h3>
             <p>{{ mission }}</p>
             
