@@ -28,8 +28,8 @@ class FeedbackForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Your name"}),
             "message": forms.Textarea(attrs={"rows": 4, "placeholder": "Your feedback"}),
-            }
-            labels = {
-                "name": "Name",
-                "message": "Feedback",
-                }
+        }
+        labels = {
+            "name": "Name",
+            "message": "Feedback",
+        }
