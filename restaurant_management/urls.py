@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from .import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('api/accounts/',include('account.urls')),
     path('api/products/',include('products.urls')),
     path('api/orders/',include('orders.urls')),
+    path("about/", views.about_view, name="about"),
 ]
 if settings.DEBUG:
     urlpatters += static(settings.MEDIA_URL, document_root=setting.MEDIA_ROOT)
