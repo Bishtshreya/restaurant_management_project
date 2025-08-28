@@ -110,6 +110,24 @@
                 </div>
             </section>
 
+            <!--  Today's Specials Section -->
+            <section class="todays-specials">
+                <h2>Today's Specials</h2>
+                {% if specials %}
+                    <ul>
+                        {% for special in specials %}
+                            <li>
+                                <h3>{{ special.name }}</h3>
+                                <p>{{ special.description }}</p>
+                                <p><strong>Price: ${{ special.price }}</strong></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No specials today. Check back tomorrow!</p>
+                {% endif %}
+            </section>
+
             <!--  Login Form Section -->
             {% if not request.user.is_authenticated %}
             <section id="login">
@@ -126,7 +144,6 @@
                 <a href="{% url 'logout' %}">Logout</a>
             </p>
             {% endif %}
-            <!--  End Login Form -->
 
             <!-- Current Date and Time -->
             <div class="datetime">
