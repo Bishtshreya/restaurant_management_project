@@ -11,6 +11,8 @@ from .forms import ContactForm
 from datetime import datetime
 from django.urls import reverse
 import random
+import .forms import FeedbackForm
+import .models import Feedback
 
 
 class MenuAPIView(APIView):
@@ -135,6 +137,21 @@ def order_page(request):
         "year": timezone.now().year,
         "cart_count": sum(request.session.get("cart", {}).values()),
     })
+
+def feedback_view(request):
+    if request.method == "POST":
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Thanks for your feedback!")
+            return redirect("feedback")  # redirect to clear POST and show success
+    else:
+        form = FeedbackForm()
+
+    # Optional: show latest few feedback entries
+    recent_feedback = Feedback.objects.order_by("-created_at")[:5]
+
+    return render(request, "feedback.html", {"form": form, "recent_feedback": recent_feedback})
 
 def faq_view(request):
     return render(request, "faq.html", {
