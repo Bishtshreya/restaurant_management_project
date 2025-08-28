@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import feeeback_view
 
 urlpatterns = [
     path('contact/', views.contact_us),
@@ -10,7 +11,7 @@ urlpatterns = [
     path("", views.homepage_view, name="home"),
     path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
     path("order/confirmation/", views.order_confirmation, name="order_confirmation"),
-    path("", include("yourapp.urls")),
+    path("feedback/", feedback_view, name="feedback"),
 
     #  Built-in Django auth views
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
