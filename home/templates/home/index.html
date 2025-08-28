@@ -82,6 +82,15 @@
         </nav>
         
         <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <img src="{% static 'images/hero-dish.jpg' %}" alt="Signature Dish" class="hero-image">
+                <div class="hero-text">
+                    <h2>Welcome to {{ restaurant_name }}</h2>
+                    <p>Delicious food, cozy atmosphere, and unforgettable taste!</p>
+                </div>
+            </section>
+
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in town!</p>
 
@@ -89,6 +98,16 @@
             <div class="order-now">
                 <a href="{% url 'order' %}" class="order-btn">Order Now</a>
             </div>
+
+            <!--Food Gallery -->
+            <section class="featured">
+                <h2>Our Specials</h2>
+                <div class="gallery">
+                    <img src="{% static 'images/food1.jpg' %}" alt="Dish 1">
+                    <img src="{% static 'images/food2.jpg' %}" alt="Dish 2">
+                    <img src="{% static 'images/food3.jpg' %}" alt="Dish 3">
+                </div>
+            </section>
 
             <!--  Login Form Section -->
             {% if not request.user.is_authenticated %}
