@@ -10,9 +10,9 @@ urlpatterns = [
     path("", views.homepage_view, name="home"),
     path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
     path("order/confirmation/", views.order_confirmation, name="order_confirmation"),
+    path("", include("yourapp.urls")),
 
     #  Built-in Django auth views
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
-    ]
 ]
