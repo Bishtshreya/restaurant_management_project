@@ -14,6 +14,7 @@ import random
 import .forms import FeedbackForm
 import .models import Feedback
 from .models import AboutUs
+from .models import Special
 
 
 class MenuAPIView(APIView):
