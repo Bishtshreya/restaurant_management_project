@@ -40,7 +40,6 @@ def homepage(request):
     # get cart from session 
     cart =  request.session.get("cart", {})
     total_items_in_cart = sum(cart.values()) 
-    specials = Special.objects.filter(date=date.today())
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
