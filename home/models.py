@@ -33,6 +33,13 @@ class Feedback(models.Model):
         # Helpful in admin/list displays
         return f"{self.name}  {self.created_at:%Y-%m-%d %H:%M}"
 
+class AboutUs(models.Model):
+    title = models.CharField(max_length=200, default="About Our Restaurant")
+    description = models.TextField()
+    image = models.ImageField(upload_to='about_images/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 class RestaurantLocation(models.Model):
     address = models.CharField(max_length=255)
