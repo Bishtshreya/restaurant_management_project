@@ -24,6 +24,15 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+class Feedback(models.Model):
+    name = models.CharField(max_length=100)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        # Helpful in admin/list displays
+        return f"{self.name}  {self.created_at:%Y-%m-%d %H:%M}"
+
 
 class RestaurantLocation(models.Model):
     address = models.CharField(max_length=255)
