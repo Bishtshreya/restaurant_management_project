@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirects, get_objects_or_404
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -76,8 +76,37 @@ def about_us(request):
 
 def about_view(request):
     about = AboutUs.objects.first()  # assuming only 1 entry
-    return render(request, "about.html", {"about": about})
-    
+    return render(request, "about.html", {"about": about}))
+
+def add_to_cart(request, item_id):
+    item = get_object_or_404(MenuList, id=item_id)
+
+    cart = request.session.get('cart', {})
+
+    if str(item_id) in cart:
+        cart[str(item_id)]["quantity"] += 1
+    else:
+        cart[str(item_id)] = {
+            "name": item.name,
+            "price": float(item.price),  # store as float to be JSON serializable
+            "quantity": 1,
+        }
+
+        request.session['cart'] = cart_countmessages.success(request, f"{item.name} added to your cart!")
+        return redirect('menu')  # redirect back to menu or wherever you like
+
+def view_cart(request):
+    cart = request.session.get('cart', {})
+    total = sum(item["price"] * item["quantity"] for item in cart.values())
+    return render(request, "cart.html", {"cart": cart, "total": total})
+
+def remove_from_cart(request, item_id):
+    cart = request.session.get('cart', {})
+    if str(item_id) in cart:
+        del cart[str(item_id)]
+        request.session['cart'] = cart_countmessages.success(request, "Item removed from cart.")
+    return redirect('view_cart')
+
 def contact_us(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
