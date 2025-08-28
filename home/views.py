@@ -13,6 +13,7 @@ from django.urls import reverse
 import random
 import .forms import FeedbackForm
 import .models import Feedback
+from .models import AboutUs
 
 
 class MenuAPIView(APIView):
@@ -73,6 +74,10 @@ def about_us(request):
     except Exception as e:
         return JsonResponse({"error": "Failed to load About Us page", "details": str(e)}, status=500)
 
+def about_view(request):
+    about = AboutUs.objects.first()  # assuming only 1 entry
+    return render(request, "about.html", {"about": about})
+    
 def contact_us(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
