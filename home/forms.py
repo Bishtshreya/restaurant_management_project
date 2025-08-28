@@ -1,4 +1,5 @@
 from django import forms
+from .models import Feedback
 from .model import Contact
 
 class ContactForm(forms.ModelForm):
@@ -19,3 +20,16 @@ class ContactForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(attrs={"placeholder": "Enter your message"})
     )  
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ["name", "message"]
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Your name"}),
+            "message": forms.Textarea(attrs={"rows": 4, "placeholder": "Your feedback"}),
+            }
+            labels = {
+                "name": "Name",
+                "message": "Feedback",
+                }
