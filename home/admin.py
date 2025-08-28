@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Feedback
 from .models import Menu, Order
+from .models import AboutUs
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
@@ -17,4 +18,8 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = ("name", "created_at")
     search_fields = ("name", "message")
     ordering = ("-created_at",)
+
+@admin.register(AboutUs)
+class AboutUsAdmin(admin.ModelAdmin):
+    list_display = ("title",)
 
