@@ -41,6 +41,15 @@ class AboutUs(models.Model):
     def __str__(self):
         return self.title
 
+class Special(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    date = models.DateField(auto_now_add=True)  # when the special is added
+
+    def __str__(self):
+        return self.name
+
 class RestaurantLocation(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
