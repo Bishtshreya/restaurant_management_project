@@ -53,6 +53,7 @@ def homepage(request):
         "cart_count": total_items_in_cart,
         "current_datetime": timezone.now(),
         "specials": Special.objects.filter(date=date.today())
+        "hours: setting.OPENING_HOURS",
     }
     return render(request, "index.html", context)
     
