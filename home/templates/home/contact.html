@@ -95,10 +95,21 @@
         <section id="contact">
             <form id="contactForm" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.non_field_errors }}
+
+                <label for="id_name">Name</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+
+                <label for="id_email">Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+
+                <label for="id_message">Message</label>
+                {{ form.message }}
+                {{ form.message.errors }}
+
                 <button type="submit">Submit</button>
-                <p id="nameError" class="error"></p>
-                <p id="emailError" class="error"></p>
             </form>
         </section>
                 
