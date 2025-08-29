@@ -15,7 +15,7 @@ import .forms import FeedbackForm
 import .models import Feedback
 from .models import AboutUs
 from .models import Special
-
+from .models import OpeningHour
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -40,6 +40,9 @@ def homepage(request):
     # get cart from session 
     cart =  request.session.get("cart", {})
     total_items_in_cart = sum(cart.values()) 
+
+    hours = OpeningHour.objects.all()
+    
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
