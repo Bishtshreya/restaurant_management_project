@@ -128,6 +128,10 @@ def contact_us(request):
                 messages.error(request, f"Failed to send email: {e}")
     else:       
         form = ContactForm()
+    info = restaurantInfo.objects.first()
+
+    return render(request, "contact.html", {"form": form, "info": info})
+    
 def thank_you(request):
     return render(request, "thank_you.html")
 
