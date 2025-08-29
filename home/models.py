@@ -15,6 +15,17 @@ class MenuList(models.Model):
 
     def __str__(self):
         return self.name
+        
+class OpeningHour(models.Model):
+    day = models.CharField(max_length=20)  # e.g. Monday
+    open_time = models.TimeField()
+    close_time = models.TimeField()
+
+    class Meta:
+        ordering = ["id"]  # keeps days in entered order
+
+        def __str__(self):
+            return f"{self.day}: {self.open_time.strftime('%I:%M %p')} - {self.close_time.strftime('%I:%M %p')}"
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
