@@ -3,6 +3,7 @@ from .models import Feedback
 from .models import Menu, Order
 from .models import AboutUs
 from .models import OpeningHour
+from .models import RestaurantInfo
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
@@ -28,4 +29,8 @@ class AboutUsAdmin(admin.ModelAdmin):
 class OpeningHourAdmin(admin.ModelAdmin):
     list_display = ("day", "open_time", "close_time")
     ordering = ("id",)
+
+@admin.register(RestaurantInfo)
+class RestaurantInfoAdmin(admin.ModelAdmin):
+    list_display = ("name", "phone", "email", "address")
 
