@@ -3,6 +3,15 @@ from .models import Feedback
 from .model import Contact
 
 class ContactForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={'placeholder': 'Enter your email'}),
+        error_messages={
+            'invalid': 'Please enter a valid email address.',
+            'required': 'Email is required.'
+        }
+    )
+
     class Meta:
         model = Contact
         fields = ["name", "email", "message"]  # include message field
