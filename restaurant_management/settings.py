@@ -30,6 +30,16 @@ ALLOWED_HOSTS = ['*']
 RESTRO_NAME = "Shreya Kitchen"
 PHONE_NUMBER = "9182378743"
 
+# Opening hours (dict style)
+OPENING_HOURS = {
+    "Monday": "9:00 AM  10:00 PM",
+    "Tuesday": "9:00 AM  10:00 PM",
+    "Wednesday": "9:00 AM  10:00 PM",
+    "Thursday": "9:00 AM  10:00 PM",
+    "Friday": "9:00 AM  11:00 PM",
+    "Saturday": "10:00 AM  11:00 PM",
+    "Sunday": "Closed",
+    }
 
 # Application definition
 
@@ -139,3 +149,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 # django auth redirects 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
