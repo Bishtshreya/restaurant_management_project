@@ -219,8 +219,8 @@
             <section id="opening-hours">
                 <h2>Opening Hours</h2>
                 <ul>
-                    {% for hour in hours %}
-                        <li>{{ hour.day }}: {{ hour.open_time|time:"g:i A" }} - {{hour.close_time|time:"g:i A" }}</li>
+                    {% for day, time in hours.items %}
+                        <li>{{ day }}: {{ time }}</li>
                     {% endfor %}
                 </ul>
             </section>
