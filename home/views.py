@@ -17,7 +17,7 @@ from .models import AboutUs
 from .models import Special
 from .models import OpeningHour
 from .forms import Contactform
-
+from .models import restaurantInfo
 class MenuAPIView(APIView):
     def get(self, request):
         try:
