@@ -4,7 +4,7 @@ from . import views
 from .views import feeeback_view
 
 urlpatterns = [
-    path('contact/', views.contact_us),
+    path('contact/', views.contact_us, name="contact"),
     path("menu/", views.menu_items, name="menu"),
     path('about/', views.about_us, name= 'about'),
     path("faq/", views.faq_view, name="faq"),
