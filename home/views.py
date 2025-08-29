@@ -16,6 +16,7 @@ import .models import Feedback
 from .models import AboutUs
 from .models import Special
 from .models import OpeningHour
+from .forms import Contactform
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -122,6 +123,7 @@ def contact_us(request):
             try:
                 send_mail(subject, message, from_email, recipient_list, fail_silently=False)
                 messages.success(request, "Your message has been sent successfully!")
+                return redirect("thank_you")
             except Exception as e:
                 messages.error(request, f"Failed to send email: {e}")
 
