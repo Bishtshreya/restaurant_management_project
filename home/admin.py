@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Feedback
 from .models import Menu, Order
 from .models import AboutUs
+from .models import OpeningHour
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
@@ -22,4 +23,9 @@ class FeedbackAdmin(admin.ModelAdmin):
 @admin.register(AboutUs)
 class AboutUsAdmin(admin.ModelAdmin):
     list_display = ("title",)
+
+@admin.register(OpeningHour)
+class OpeningHourAdmin(admin.ModelAdmin):
+    list_display = ("day", "open_time", "close_time")
+    ordering = ("id",)
 
