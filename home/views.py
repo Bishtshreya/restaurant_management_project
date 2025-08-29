@@ -126,9 +126,10 @@ def contact_us(request):
                 return redirect("thank_you")
             except Exception as e:
                 messages.error(request, f"Failed to send email: {e}")
-
     else:       
         form = ContactForm()
+def thank_you(request):
+    return render(request, "thank_you.html")
 
     try:
         #  added cart_count here too
