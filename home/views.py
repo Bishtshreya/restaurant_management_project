@@ -39,10 +39,7 @@ def homepage(request):
         search_results = MenuList.objects.filter(name__icontains=query)
     # get cart from session 
     cart =  request.session.get("cart", {})
-    total_items_in_cart = sum(cart.values()) 
-
-    hours = OpeningHour.objects.all()
-    
+    total_items_in_cart = sum(cart.values())
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
