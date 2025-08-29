@@ -17,7 +17,7 @@ from .models import AboutUs
 from .models import Special
 from .models import OpeningHour
 from .forms import Contactform
-from .models import restaurantInfo
+from .models import RestaurantInfo
 class MenuAPIView(APIView):
     def get(self, request):
         try:
@@ -128,9 +128,9 @@ def contact_us(request):
                 messages.error(request, f"Failed to send email: {e}")
     else:       
         form = ContactForm()
-    info = restaurantInfo.objects.first()
+    restaurant_info = RestaurantInfo.objects.first()
 
-    return render(request, "contact.html", {"form": form, "info": info})
+    return render(request, "contact.html", {"form": form, "restaurant": restaurant_info})
     
 def thank_you(request):
     return render(request, "thank_you.html")
