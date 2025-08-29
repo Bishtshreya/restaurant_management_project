@@ -60,7 +60,15 @@ class Special(models.Model):
 
     def __str__(self):
         return self.name
+        
+class RestaurantInfo(models.Model):
+    name = models.CharField(max_length=200, default="Foodie's Paradise")
+    phone = models.CharField(max_length=20, default="+91-9876543210")
+    email = models.EmailField(default="contact@foodiesparadise.com")
+    address = models.TextField(default="123 Main Street, Dehradun, India")
 
+    def __str__(self):
+        return self.name
 class RestaurantLocation(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
