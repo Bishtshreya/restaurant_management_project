@@ -16,6 +16,7 @@ urlpatterns = [
     path("cart/add/<int:item_id>/", views.add_to_cart, name="add_to_cart"),
     path("cart/remove/<int:item_id>/", views.remove_from_cart, name="remove_from_cart"),
     path("thank-you/", views.thank_you, name="thank_you"),
+    path("about-chef/", views.about_chef, name = "about_chef")
     
     #  Built-in Django auth views
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
