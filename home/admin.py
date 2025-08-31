@@ -1,9 +1,5 @@
 from django.contrib import admin
-from .models import Feedback
-from .models import Menu, Order
-from .models import AboutUs
-from .models import OpeningHour
-from .models import RestaurantInfo
+from .models import RestaurantInfo, Chef, OpeningHour, Menu, Order, Feedback
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
@@ -34,3 +30,6 @@ class OpeningHourAdmin(admin.ModelAdmin):
 class RestaurantInfoAdmin(admin.ModelAdmin):
     list_display = ("name", "phone", "email", "address")
 
+@admin.register(Chef)
+class ChefAdmin(admin.ModelAdmin):
+    list_display = ("name")
