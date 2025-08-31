@@ -18,6 +18,8 @@ from .models import Special
 from .models import OpeningHour
 from .forms import Contactform
 from .models import RestaurantInfo
+from django.core.paginator import Paginator
+
 class MenuAPIView(APIView):
     def get(self, request):
         try:
@@ -153,7 +155,10 @@ def thank_you(request):
 def menu_items(request):
     try:
         items = MenuList.objects.all()
-        return render(request, "menu.html", {"items": items})
+        paginator = Paginator(items, 5)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(request, "menu.html", {"page_obj": page_obj})
     except Exception as e:
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
 
