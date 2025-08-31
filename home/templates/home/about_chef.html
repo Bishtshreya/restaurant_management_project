@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>About the Chef</title>
+    </head>
+    <body>
+        <h1>Meet Our Chef</h1>
+
+        {% if chef %}
+            <div class="chef-profile">
+                {% if chef.image %}
+                    <img src="{{ chef.image.url }}" alt="Chef {{ chef.name }}">
+                {% endif %}
+                <h2>{{ chef.name }}</h2>
+                <p>{{ chef.bio }}</p>
+            </div>
+        {% else %}
+            <p>Chef information coming soon!</p>
+        {% endif %}
+    </body>
+</html>
