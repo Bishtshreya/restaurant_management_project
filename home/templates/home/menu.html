@@ -52,7 +52,7 @@
                     {% if item.image %}
                     <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" class="menu-item-image">
                     {% endif %}
-                    <h2>{{ item.name }}</h2>
+                    <h2>{{ item.name }}</h2>{% if not item.available %}<span>(Comming Soon)</span>{% endif %}
                     <p>{{ item.description }}</p>
                     <p class="price"><strong>Price:</strong> {{ item.price }}</p>
                     <a href="{% url 'add_to_cart' item.id %}">Add to Cart</a>
