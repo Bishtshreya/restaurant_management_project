@@ -83,4 +83,10 @@ class RestaurantLocation(models.Model):
     def __str__(self):
         return f"{self.address}, {self.city}, {self.state} - {self.zip_code}"
 
-    
+class Chef(models.Model):
+    name = models.CharField(max_length=100)
+    bio = models.TextField()
+    image = models.ImageField(upload_to="chef_images/", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
