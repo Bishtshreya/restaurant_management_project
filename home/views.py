@@ -66,8 +66,10 @@ def about_us(request):
         #  added cart_count so breadcrumbs/footer match homepage
         cart = request.session.get("cart", {})
         total_items_in_cart = sum(cart.values())
+        about = AboutUs.objects.first()
 
         context = {
+                "about": about,
                 "restaurant_name": restaurant_name,
                 "mission": mission,
                 "history": history,
