@@ -50,7 +50,7 @@
                 {% for item in page_obj %}
                 <div class="menu-item">
                     {% if item.image %}
-                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="menu-item-image">
+                    <img src="{{ item.image.url }}" alt="{{ item.image_alt }}" class="menu-item-image">
                     {% endif %}
                     <h2>{{ item.name }}</h2>
                     <p>{{ item.description }}</p>
