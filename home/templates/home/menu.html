@@ -47,7 +47,7 @@
 
         <main>
             <div class="menu-container">
-                {% for item in items %}
+                {% for item in page_obj %}
                 <div class="menu-item">
                     {% if item.image %}
                     <img src="{{ item.image.url }}" alt="{{ item.name }}" class="menu-item-image">
@@ -55,20 +55,26 @@
                     <h2>{{ item.name }}</h2>
                     <p>{{ item.description }}</p>
                     <p class="price"><strong>Price:</strong> {{ item.price }}</p>
-                {% for item in menu_items %}
-                    <div class="menu-item">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p>Price: ${{ item.price }}</p>
-                        <a href="{% url 'add_to_cart' item.id %}">Add to Cart</a>
-                    </div>
-                {% endfor %}
-
-                <a href="{% url 'view_cart' %}">View Cart</a>
+                    <a href="{% url 'add_to_cart' item.id %}">Add to Cart</a>
+                    <a href="{% url 'view_cart' %}">View Cart</a>
                 </div>
                 {% endfor %}
             </div>
 
+            <!-- Pagination controls -->
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+            </div>
         </main>
         <footer>
             <p>&copy; 2025 Foodie's Paradise</p>
