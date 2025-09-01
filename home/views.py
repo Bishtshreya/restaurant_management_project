@@ -43,6 +43,15 @@ def homepage(request):
     # get cart from session 
     cart =  request.session.get("cart", {})
     total_items_in_cart = sum(cart.values())
+    opening_hours = {
+        "Monday": "9:00 AM  10:00 PM",
+        "Tuesday": "9:00 AM  10:00 PM",
+        "Wednesday": "9:00 AM  10:00 PM",
+        "Thursday": "9:00 AM  11:00 PM",
+        "Friday": "9:00 AM  11:30 PM",
+        "Saturday": "10:00 AM  11:30 PM",
+        "Sunday": "10:00 AM  9:00 PM",
+    }
     context = {
         "restaurant_name": "Shreya Restaurant",
         "phone_number": restaurant_location.phone_number if restaurant_location else getattr(settings, "PHONE_NUMBER", "N/A"),
@@ -53,7 +62,7 @@ def homepage(request):
         "cart_count": total_items_in_cart,
         "current_datetime": timezone.now(),
         "specials": Special.objects.filter(date=date.today())
-        "hours: setting.OPENING_HOURS",
+        "hours": opening_hours,
     }
     return render(request, "index.html", context)
     
