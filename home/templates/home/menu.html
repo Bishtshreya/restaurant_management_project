@@ -1,12 +1,6 @@
 {% load static %}
-
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Our Menu</title>
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% extends 'base.html' %}
+{% block content %}
         <style>
             /* Breadcrumb styles */
             .breadcrumbs {
@@ -28,24 +22,6 @@
                 margin: 0 5px;
             }
         </style>
-    </head>
-    <body>
-        <header>
-            <h1>Our Menu</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="{% url 'menu' %}">Menu</a>
-                <a href="{% url 'contact' %}">Contact</a>
-            </nav>
-        </header>
-        
-        <!-- Breadcrumbs -->
-        <nav class="breadcrumbs">
-            <a href="/">Home</a>
-            <span>&gt;</span> <span>Menu</span>
-        </nav>
-
-        <main>
             <div class="menu-container">
                 {% for item in page_obj %}
                 <div class="menu-item">
@@ -75,11 +51,6 @@
                     <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
                 {% endif %}
             </div>
-        </main>
-        <footer>
-            <p>&copy; 2025 Foodie's Paradise</p>
-        </footer>
-    </body>
-</html>
+        {% endblock %}
                                                                                                         
                                                                                                         
