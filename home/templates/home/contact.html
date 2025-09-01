@@ -84,6 +84,14 @@
     
     <body>
         <h1>Contact Us</h1>
+
+        {% if success %}
+        <div class="success-message">
+            <div class="success-icon"></div>
+            <h2 style="color:black;">Thank You!</h2>
+            <p>Your message has been successfully submitted. Well get back to you shortly.</p>
+        </div>
+        {%endif%}
         
         <div class="info">
             <p><strong>Restaurant Name:</strong> {{ restaurant.name }}</p>
