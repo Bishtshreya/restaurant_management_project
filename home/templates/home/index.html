@@ -1,4 +1,7 @@
+
 {% load static %}
+{% extends 'base.html' %}
+{% block content %}
         <style>
             /* Breadcrumb styles */
             .breadcrumbs {
@@ -30,10 +33,7 @@
                 display: inline-block;
             }
         </style>
-    <body>
-        
-        
-        <main>
+
             <!-- Hero Section -->
             <section class="hero">
                 <img src="{% static 'images/hero-dish.jpg' %}" alt="Signature Dish" class="hero-image">
@@ -175,14 +175,4 @@
                     {% endfor %}
                 </ul>
             </section>
-        </main>
-
-        <footer>
-            <p>&copy; {{ year }} Shreya Restaurant. All Rights Reserved.</p>
-            <p><strong>Opening Hours:</strong> Mon-Fri: 11am - 9pm | Sat-Sun: 10am - 10pm</p>
-            <p>
-                <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
-            </p>
-        </footer>
-    </body>
-</html>
+{% endblock %}
