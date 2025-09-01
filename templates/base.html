@@ -7,6 +7,40 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
+        <header>
+
+            <!-- Logo -->
+            <div>
+                {% if restaurant_location and restaurant_location.logo %}
+                <img src="{{ restaurant_location.logo.url }}" alt="Restaurant Logo" style="max-height:120px;">
+                {% else %}
+                <img src="{% static 'images/logo.png' %}" alt="Default Restaurant Logo" style="max-height:120px;">
+                {% endif %}
+            </div>
+
+            <!-- Restaurant Name -->
+            <h1>{{ restaurant_name }}</h1>
+
+            <!-- Phone Number -->
+            {% if phone_number %}
+            <div class="phone-number">
+                Call Us: <strong>{{ phone_number }}</strong>
+            </div>
+            {% endif %}
+
+            <!--Welcome Message-->
+            <p class="welcome-message">Serving happiness on every plate - where taste meets tradition!</p>
+
+        </header>
+
+        <nav class="breadcrumbs">
+            <a href="/">Home</a>
+            {% if request.resolver_match.url_name == "about" %}
+            <span>&gt;</span> <span>About Us</span>
+            {% elif request.resolver_match.url_name == "cart" %}
+            <span>&gt;</span> <span>Cart</span>
+            {% endif %}
+        </nav>
         <!-- Page Content -->
         <main>
             {% block content %}{% endblock %}
