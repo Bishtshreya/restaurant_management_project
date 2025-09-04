@@ -152,3 +152,6 @@ LOGOUT_REDIRECT_URL = "home"
 
 CONTACT_EMAL = "info@restaurant.com"
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL ="noreply@restaurant.com"
+
