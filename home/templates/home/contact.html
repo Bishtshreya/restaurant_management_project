@@ -91,7 +91,7 @@
             <h2 style="color:black;">Thank You!</h2>
             <p>Your message has been successfully submitted. Well get back to you shortly.</p>
         </div>
-        {%endif%}
+        {% endif %}
         
         <div class="info">
             <p><strong>Restaurant Name:</strong> {{ restaurant.name }}</p>
@@ -99,6 +99,13 @@
             <p><strong>Email:</strong> {{ restaurant.email }}</p>
             <p><strong>Address:</strong> {{ restaurant.address }}</p>
         </div>
+
+        <section>
+            <span>Contact Us : </span>
+            <a href="mailto:{{restaurant.email}}">{{restaurant.email}}</a>
+        </section>
+
+        <span>or</span>
             
         <section id="contact">
             <form id="contactForm" method="POST">
