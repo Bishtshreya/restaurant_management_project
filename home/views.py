@@ -143,7 +143,7 @@ def contact_us(request):
         form = ContactForm()
     restaurant_info = RestaurantInfo.objects.first()
 
-    return render(request, "contact.html", {"form": form, "restaurant": restaurant_info})
+    return render(request, "contact.html", {"form": form, "restaurant": restaurant_info, "contact_email": settings.CONTACT_EMAIL})
     
 def thank_you(request):
     return render(request, "thank_you.html")
