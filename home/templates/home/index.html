@@ -44,7 +44,7 @@
             </section>
 
             <h2>Welcome to {{ restaurant_name }}</h2>
-            <p>Best food in town!</p>
+            <p>Best food in {% if restaurant_location && restaurant_location.city %} {{restaurant_location.city}} {% else %} town! {% endif %}</p>
 
             <!--  Order Now Button -->
             <div class="order-now">
