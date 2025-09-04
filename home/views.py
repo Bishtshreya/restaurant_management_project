@@ -223,3 +223,5 @@ def faq_view(request):
         "current_page": "FAQ"
     })       
 
+def reservation(request):
+    return render(request, "home/reservation.html")
