@@ -128,6 +128,8 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             contact = form.save()
+
+            #email to restaurant 
             subject = f"New Contact Message from {contact.name}"
             message = f"Name: {contact.name}\nEmail: {contact.email}\n\nMessage:\n{contact.message}"
             from_email = settings.DEFAULT_FROM_EMAIL
@@ -135,16 +137,36 @@ def contact_us(request):
 
             try:
                 send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
+                confirmation_subject = "Thank you for contacting us!"
+                confirmation_message = (
+                    f"Hello {contact.name},\n\n"
+                    "Weve received your message and will get back to you shortly.\n\n"
+                    "Your message:\n"
+                    f"{contact.message}\n\n"
+                    "Best regards,\nRestaurant Team"
+                )
+
+                # Hardcoded email (instead of contact.email)
+                user_email = "user@example.com"
+
+                send_mail(
+                    confirmation_subject,
+                    confirmation_message,
+                    from_email,
+                    [user_email],   # send to hardcoded address
+                    fail_silently=False,
+                )
                 messages.success(request, "Your message has been sent successfully!")
                 return redirect("thank_you")
             except Exception as e:
                 messages.error(request, f"Failed to send email: {e}")
     else:       
         form = ContactForm()
-    restaurant_info = RestaurantInfo.objects.first()
 
-    return render(request, "contact.html", {"form": form, "restaurant": restaurant_info, "contact_email": settings.CONTACT_EMAIL})
-    
+    restaurant_info = RestaurantInfo.objects.first()
+    return render(request, "contact.html", {"form": form, "restaurant": restaurant_info, "contact_email": settings.CONTACT_EMAIL},
+    )
 def thank_you(request):
     return render(request, "thank_you.html")
 
