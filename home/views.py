@@ -212,6 +212,9 @@ def feedback_view(request):
 
     return render(request, "feedback.html", {"form": form, "recent_feedback": recent_feedback})
 
+def our_story(request):
+    return render(request, "our_story.html")
+
 def faq_view(request):
     return render(request, "faq.html", {
         "restaurant_name": "Shreya Restaurant",
