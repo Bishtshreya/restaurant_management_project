@@ -20,4 +20,5 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
     path("reservation/", view.reservation, name="reservation"),
+    path("our-story/", views.our_story, name="our_story"),
 ]
