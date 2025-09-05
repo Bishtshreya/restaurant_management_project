@@ -36,9 +36,11 @@
         <nav class="breadcrumbs">
             <a href="/">Home</a>
             {% if request.resolver_match.url_name == "about" %}
-            <span>&gt;</span> <span>About Us</span>
+                <span>&gt;</span> <span>About Us</span>
             {% elif request.resolver_match.url_name == "cart" %}
-            <span>&gt;</span> <span>Cart</span>
+                <span>&gt;</span> <span>Cart</span>
+            {% elif request.resolver_match.url_name == "our_story" %}
+                <span>&gt;</span> <span>Our Story</span>
             {% endif %}
         </nav>
         <!-- Page Content -->
