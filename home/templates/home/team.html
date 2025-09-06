@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Team - {{ restaurant_name }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 15px;
+            text-align: center;
+            color: white;
+        }
+        header nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .team-member {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .team-member h3 {
+            margin: 10px 0 5px;
+            color: #333;
+        }
+        .team-member p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meet Our Team</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'team' %}">Our Team</a>
+        </nav>
+    </header>
+                        
+    <main>
+        <h1>Our Amazing Staff</h1>
+        <p>Behind every delicious dish and warm smile is a dedicated team that makes {{ restaurant_name }} special.</p>
+                            
+        <div class="team-container">
+            <div class="team-member">
+                <img src="{% static 'images/chef1.jpg' %}" alt="Chef John">
+                <h3>Chef John Doe</h3>
+                <p>Head Chef with 15+ years of experience creating authentic flavors and innovative dishes.</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/chef2.jpg' %}" alt="Chef Sarah">
+                <h3>Chef Sarah Lee</h3>
+                <p>Pastry Chef known for her heavenly desserts and love for crafting sweet memories.</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/manager.jpg' %}" alt="Manager Alex">
+                <h3>Alex Martin</h3>
+                <p>Restaurant Manager ensuring every guest has a wonderful dining experience.</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/waiter.jpg' %}" alt="Waiter Maria">
+                <h3>Maria Rodriguez</h3>
+                <p>Friendly service staff who always greets you with a smile and makes you feel at home.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+                                    
