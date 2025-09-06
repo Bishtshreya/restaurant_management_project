@@ -19,7 +19,7 @@ urlpatterns = [
     path("about-chef/", views.about_chef, name = "about_chef")
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
-    path("reservation/", view.reservation, name="reservation"),
+    path("reservations/", view.reservations, name="reservations"),
     path("our-story/", views.our_story, name="our_story"),
     path("team/", views.team, name="team"),
 ]
