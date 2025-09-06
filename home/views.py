@@ -250,5 +250,5 @@ def faq_view(request):
 def team(request):
     return render(request, "team.html")   
 
-def reservation(request):
-    return render(request, "home/reservation.html")
+def reservations(request):
+    return render(request, "home/reservations.html")
