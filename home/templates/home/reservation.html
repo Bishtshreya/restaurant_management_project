@@ -1,4 +1,4 @@
-[5 load st]atic %}
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,9 +42,14 @@
                 margin-bottom: 10px;
                 color: #333;
             }
-            main p {
-                font-size: 16px;
-                color: #666;
+            .note-box {
+                background: #e8f5e9;
+                border-left: 4px solid #4CAF50;
+                padding: 12px;
+                margin: 15px 0;
+                color: #2e7d32;
+                font-size: 0.95rem;
+                text-align: left;
             }
             form {
                 margin-top: 20px;
@@ -94,25 +99,30 @@
         <!-- Main Content -->
         <main>
             <h2>Reserve a Table</h2>
-            <p>Our online reservation system will be available soon.<br>
+
+            <!-- Info note-->
+            <div class="note-box">
+                Our online reservation system will be available soon.<br>
                 For now, please call us at <strong>{{ phone_number }}</strong> to book your table.</p>
+            </div>
 
-        <form>
-            <label>Name:</label>
-            <input type="text" placeholder="Your Name">
+            <!-- Reservation Form -->
+            <form method="post" action="">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name">
 
-            <label>Date:</label>
-            <input type="date">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
 
-            <label>Time:</label>
-            <input type="time">
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time">
 
-            <label>Guests:</label>
-            <input type="number" min="1" placeholder="Number of Guests">
+                <label for="guests">Guests:</label>
+                <input type="number" id="guests" name="guests" min="1" placeholder="Number of Guests">
 
-            <button type="button">Reserve Now</button>
-        </form>
-    </main>
-
-</body>
+                <button type="submit">Reserve Now</button>
+            </form> 
+        </main>
+    </body>
 </html>
