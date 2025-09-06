@@ -78,6 +78,28 @@
                 color: red;
                 font-size: 14px;
                 margin-top: 5px;
+
+            /*  Opening Hours */
+            .opening-hours {
+                max-width: 600px;
+                margin: 20px auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .opening-hours h2 {
+                margin-top: 0;
+                color: #333;
+            }
+            .opening-hours ul {
+                list-style: none;
+                padding: 0;
+            }
+            .opening-hours ul li {
+                padding: 6px 0;
+                font-size: 15px;
+                color: #555;
             }
         </style>
     </head>
@@ -109,6 +131,16 @@
             <p><strong>Address:</strong> {{ restaurant.address }}</p>
         </div>
 
+        <!--  Opening Hours Section -->
+        <div class="opening-hours">
+            <h2>Opening Hours</h2>
+            <ul>
+                {% for day, time in hours.items %}
+                    <li><strong>{{ day }}:</strong> {{ time }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
         <section>
             <span>Contact Us : </span>
             <a href="mailto:{{restaurant.email}}">{{restaurant.email}}</a>
