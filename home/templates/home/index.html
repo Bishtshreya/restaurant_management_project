@@ -1,4 +1,3 @@
-
 {% load static %}
 {% extends 'base.html' %}
 {% block content %}
@@ -31,6 +30,24 @@
                 font-size: 1rem;
                 color: #333;
                 display: inline-block;
+            
+            /* Reservation Button */
+            .reservation-btn {
+                display: inline-block;
+                margin: 20px auto;
+                padding: 14px 28px;
+                background-color: #28a745;
+                color: white;
+                font-size: 18px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+                text-decoration: none;
+                transition: background 0.3s ease;
+            }
+            .reservation-btn:hover {
+                background-color: #218838;}}
             }
         </style>
 
@@ -77,6 +94,11 @@
             <!--  Order Now Button -->
             <div class="order-now">
                 <a href="{% url 'order' %}" class="order-btn">Order Now</a>
+            </div>
+
+            <!-- Reservations Button -->
+            <div style="text-align:center;">
+                <a href="{% url 'reservations' %}" class="reservation-btn">Make a Reservation</a>
             </div>
 
             <!--Food Gallery -->
