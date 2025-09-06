@@ -246,7 +246,9 @@ def faq_view(request):
         "year": datetime.now().year,
         "cart_count": sum(request.session.get("cart", {}).values()),
         "current_page": "FAQ"
-    })       
+    })    
+def team(request):
+    return render(request, "team.html")   
 
 def reservation(request):
     return render(request, "home/reservation.html")
