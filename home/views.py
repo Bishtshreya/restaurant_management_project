@@ -248,7 +248,10 @@ def faq_view(request):
         "current_page": "FAQ"
     })    
 def team(request):
-    return render(request, "team.html")   
+    return render(request, "team.html")  
+
+def privacy(request):
+    return render(request, "privacy.html") 
 
 def reservations(request):
     return render(request, "home/reservations.html")
