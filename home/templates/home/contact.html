@@ -78,6 +78,7 @@
                 color: red;
                 font-size: 14px;
                 margin-top: 5px;
+            }
 
             /*  Opening Hours */
             .opening-hours {
@@ -173,22 +174,28 @@
             document.getElementById("contactForm").addEventListener("submit", function(event) {
                 let isValid = true;
                 
-                // Clear previous errors
-                document.getElementById("nameError").textContent = "";
-                document.getElementById("emailError").textContent = "";
-                
-                // Validate nameconst name = document.getElementById("name").value.trim();
+                // Get form values
+                const name = document.getElementById("id_name").value.trim();
+                const email = document.getElementById("id_email").value.trim();
+
+                // Clear previous non_field_errors
+                const nameError = document.getElementById("nameError");
+                const emailError = document.getElementById("emailError");
+
+                if (nameError) nameError.textContent = "";
+                if (emailError) emailError.textContent = "";
+
+                // Validate Name
                 if (name === "") {
-                    document.getElementById("nameError").textContent = "Please enter your name.";
+                    if (nameError) nameError.textContent = "Please enter your name.";}
                     isValid = false;
                 }
-                
-                // Validate emailconst email = document.getElementById("email").value.trim();
+
+                // Validate Email
                 if (email === "") {
-                    document.getElementById("emailError").textContent = "Please enter your email.";
-                    isValid = false;
+                    if (emailError) emailError.textContent = "Please enter your email.";
+                isValid = false;
                 }
-                
                 if (!isValid) {
                     event.preventDefault(); // Stop form submission
                 }
