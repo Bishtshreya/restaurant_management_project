@@ -256,5 +256,8 @@ def privacy(request):
 def gallery(request):
     return render(request, "gallery.html")
 
+def custom_permission_denied_view(request, exception=None):
+    return render(request, "403.html", status=403)
+
 def reservations(request):
     return render(request, "home/reservations.html")
