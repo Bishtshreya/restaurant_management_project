@@ -251,7 +251,10 @@ def team(request):
     return render(request, "team.html")  
 
 def privacy(request):
-    return render(request, "privacy.html") 
+    return render(request, "privacy.html")
+
+def gallery(request):
+    return render(request, "gallery.html")
 
 def reservations(request):
     return render(request, "home/reservations.html")
