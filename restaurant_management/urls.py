@@ -19,6 +19,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from .import views
+from django.conf.urls import handler403
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,3 +31,6 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatters += static(settings.MEDIA_URL, document_root=setting.MEDIA_ROOT)
+
+# Custom error handler
+handler403 = "home.views.custom_permission_denied_view"
