@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import feeeback_view
+from django.conf.urls import handler403
 
 urlpatterns = [
     path('contact/', views.contact_us, name="contact"),
@@ -24,4 +25,5 @@ urlpatterns = [
     path("team/", views.team, name="team"),
     path("privacy/", views.privacy, name="privacy"),
     path("gallery/", views.gallery, name="gallery"),
+
 ]
