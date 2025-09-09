@@ -4,6 +4,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Restaurant{% endblock %}</title>
+
+        <!-- Default Meta Description (can be overridden in child templates) -->
+        {% block meta %}
+        <meta name="description" content="Welcome to our restaurant! Delicious food, cozy atmosphere, and unforgettable taste.">
+        {% endblock %}
+        
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
