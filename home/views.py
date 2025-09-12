@@ -189,11 +189,14 @@ def thank_you(request):
 
 def menu_items(request):
     try:
+        query = request.GET>get("q")
         items = MenuList.objects.all()
+        if query: 
+            items = items.filter(name__icontains=query)
         paginator = Paginator(items, 5)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
-        return render(request, "menu.html", {"page_obj": page_obj})
+        return render(request, "menu.html", {"page_obj": page_obj, "query": query})
     except Exception as e:
         return JsonResponse({"error": "Failed to load menu items", "details": str(e)}, status=500)
 
