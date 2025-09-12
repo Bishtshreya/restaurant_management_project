@@ -94,15 +94,11 @@
                         <div class="swiper-slide"><img src="{% static 'images/food3.jpg' %}" alt="Dish 3" style="width:100%; border-radius:12px;"></div>
                         <div class="swiper-slide"><img src="{% static 'images/restaurant1.jpg' %}" alt="Restaurant Interior" style="width:100%; border-radius:12px;"></div>
                     </div>
-
-                    <!-- Controls -->
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
                 </div>
             </section>
-
-            <!-- SwiperJS -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
             <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
             <script>
@@ -113,7 +109,6 @@
                     navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
                 });
             </script>
-            
             <h2>Welcome to {{ restaurant_name }}</h2>
             <p>Best food in {% if restaurant_location && restaurant_location.city %} {{restaurant_location.city}} {% else %} town! {% endif %}</p>
 
