@@ -123,14 +123,11 @@
 
                 <button type="submit">Reserve Now</button>
             </form>
-            <!-- Optional: Reservation Info -->
-            <section class="reservation-info" style="margin-top:40px; text-align:center;">
-                <h3>Why Book Ahead?</h3>
-                <p>Secure your spot at <strong>{{ restaurant_name }}</strong> and avoid waiting times. We look forward to serving you!</p>
-            </section>
-        </main>
-    {% endblock %}
-
+            <!-- Alternative contact info -->
+            <div class="contact-alt">
+                Prefer speaking directly?
+                <a href="tel:{{ phone_number }}">Call us</a> anytime to make a reservation.
+            </div>
         </main>
     </body>
 </html>
