@@ -1,14 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
-from django.shortcuts import render, redirects, get_objects_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utlis import timezone
 from .models import MenuList, RestaurantLocation
 from .forms import ContactForm
-from datetime import datetime
+from datetime import datetime, date
 from django.urls import reverse
 import random
 import .forms import FeedbackForm
@@ -93,6 +93,10 @@ def about_us(request):
 def about_view(request):
     about = AboutUs.objects.first()  # assuming only 1 entry
     return render(request, "about.html", {"about": about}))
+
+def location(request):
+    location = RestaurantLocation.objects.first()
+    return render(request, "location.html", {"location": location})
 
 def add_to_cart(request, item_id):
     item = get_object_or_404(MenuList, id=item_id)
