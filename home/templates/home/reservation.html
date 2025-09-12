@@ -122,7 +122,15 @@
                 <input type="number" id="guests" name="guests" min="1" placeholder="Number of Guests">
 
                 <button type="submit">Reserve Now</button>
-            </form> 
+            </form>
+            <!-- Optional: Reservation Info -->
+            <section class="reservation-info" style="margin-top:40px; text-align:center;">
+                <h3>Why Book Ahead?</h3>
+                <p>Secure your spot at <strong>{{ restaurant_name }}</strong> and avoid waiting times. We look forward to serving you!</p>
+            </section>
+        </main>
+    {% endblock %}
+
         </main>
     </body>
 </html>
