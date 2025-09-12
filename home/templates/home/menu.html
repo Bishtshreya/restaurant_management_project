@@ -118,6 +118,17 @@
 </style>
     
 <h1 style="text-align: center; margin-bottom: 20px;">Our Menu</h1>
+
+<!-- Search Bar -->
+<form method="get" action="{% url 'menu' %}" style="margin-bottom:20px; text-align:center;">
+    <input type="text" name="q" placeholder="Search for dishes..."
+           value="{{ query|default:'' }}"
+           style="padding:8px; width:250px; border:1px solid #ccc; border-radius:4px;">
+    <button type="submit"
+            style="padding:8px 15px; background:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer;">
+        Search
+    </button>
+</form>
     
 <div class="menu-container">
     {% for item in page_obj %}
@@ -134,6 +145,8 @@
         <a href="{% url 'add_to_cart' item.id %}">Add to Cart</a>
         <a href="{% url 'view_cart' %}">View Cart</a>
     </div>
+    {% empty %}
+        <p style="text-align:center; color:#888;">No menu items found.</p>
     {% endfor %}
 </div>
             
