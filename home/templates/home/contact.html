@@ -128,7 +128,12 @@
         <div class="info">
             <p><strong>Restaurant Name:</strong> {{ restaurant.name }}</p>
             <p><strong>Phone:</strong> {{ restaurant.phone }}</p>
-            <p><strong>Email:</strong> {{ restaurant.email }}</p>
+            <!--  Changed this line to clickable email -->
+            <p><strong>Email:</strong>
+                <a href="mailto:{{ restaurant.email }}" style="color:#007BFF; text-decoration:none;">
+                    {{ restaurant.email }}
+                </a>
+            </p>
             <p><strong>Address:</strong> {{ restaurant.address }}</p>
         </div>
 
