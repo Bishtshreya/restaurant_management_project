@@ -34,7 +34,6 @@ class MenuAPIView(APIView):
 
 def homepage(request):
     restaurant_location = RestaurantLocation.objects.first()  # Get first location (assuming only one)
-    
     #basic search functionality
     query = request.GET.get("q")
     search_results = None
