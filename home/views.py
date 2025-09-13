@@ -134,7 +134,11 @@ def contact_us(request):
 
             #email to restaurant 
             subject = f"New Contact Message from {contact.name}"
-            message = f"Name: {contact.name}\nEmail: {contact.email}\n\nMessage:\n{contact.message}"
+            message = (
+                f"Name: {contact.name}\n"
+                f"Email: {contact.email}\n\n"
+                f"Message:\n{contact.message}"
+            )
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [settings.CONTACT_EMAIL]  # configure in settings.py
 
