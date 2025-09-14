@@ -36,8 +36,21 @@
 
             <!--Welcome Message-->
             <p class="welcome-message">Serving happiness on every plate - where taste meets tradition!</p>
-
         </header>
+        <!--  New Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="{% url 'home' %}" class="logo">{{ restaurant_name }}</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'menu' %}">Menu</a></li>
+                    <li><a href="{% url 'reservations' %}">Reservations</a></li>
+                    <li><a href="{% url 'locations' %}">Locations</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'view_cart' %}">View Cart</a></li>
+                </ul>
+            </div>
+        </nav>
 
         <nav class="breadcrumbs">
             <a href="/">Home</a>
