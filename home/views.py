@@ -19,6 +19,9 @@ from .models import OpeningHour
 from .forms import Contactform
 from .models import RestaurantInfo
 from django.core.paginator import Paginator
+from rest_framework import generics
+from .models import MenuCategory
+from .serializers import MenuCategorySerializer
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -271,3 +274,7 @@ def custom_permission_denied_view(request, exception=None):
 
 def reservations(request):
     return render(request, "home/reservations.html")
+
+class MenuCategoryListView(generics.ListAPIView):
+    queryset = MenuCategory.objects.all()
+    serializers_class = MenuCategorySerializer
