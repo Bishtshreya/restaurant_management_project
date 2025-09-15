@@ -7,7 +7,20 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+#  Menu Category Model
+class MenuCategory(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Menu Categories"
+
+    def __str__(self):
+        return self.name
+
 class MenuList(models.Model):
+    category = models.ForeignKey(
+        MenuCategory, on_delete=models.CASCADE, related_name="menu_items", null=True, blank=True
+    )
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -71,6 +84,7 @@ class RestaurantInfo(models.Model):
 
     def __str__(self):
         return self.name
+
 class RestaurantLocation(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
