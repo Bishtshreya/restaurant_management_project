@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import feeeback_view
+from .views import MenuCategoryListView
 
 
 urlpatterns = [
@@ -26,5 +27,5 @@ urlpatterns = [
     path("privacy/", views.privacy, name="privacy"),
     path("gallery/", views.gallery, name="gallery"),
     path("locations/", views.locations, name="locations"),
-
+    path("api/menu-categories/", MenuCategoryListView.as_view(), name="menu-categories"),
 ]
