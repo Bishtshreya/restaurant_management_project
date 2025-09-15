@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import RestaurantInfo, Chef, OpeningHour, Menu, Order, Feedback
+from .models import RestaurantInfo, Chef, OpeningHour, MenuList, Order, Feedback, MenuCategory
 
-@admin.register(Menu)
-class MenuAdmin(admin.ModelAdmin):
-    list_display = ('name','price')
+@admin.register(MenuCategory)
+class MenuCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
     search_fields = ('name',)
+
+@admin.register(MenuList)
+class MenuListAdmin(admin.ModelAdmin):
+    list_display = ("name", "price", "available", "category")
+    list_filter = ("available", "category")
+    search_fields = ("name", "description")
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
