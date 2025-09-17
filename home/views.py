@@ -22,6 +22,7 @@ from django.core.paginator import Paginator
 from rest_framework import generics
 from .models import MenuCategory
 from .serializers import MenuCategorySerializer
+from .serializers import MenuListSerializer
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -275,6 +276,17 @@ def custom_permission_denied_view(request, exception=None):
 def reservations(request):
     return render(request, "home/reservations.html")
 
+# API for categories
 class MenuCategoryListView(generics.ListAPIView):
     queryset = MenuCategory.objects.all()
     serializers_class = MenuCategorySerializer
+
+#  API for searching menu items
+class MenuSearchAPIView(generics.ListAPIView):
+    serializer_class = MenuListSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get("q", "")
+        if query:
+            return MenuList.objects.filter(name__icontains=query)
+        return MenuList.objects.all()
