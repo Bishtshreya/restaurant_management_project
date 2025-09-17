@@ -26,7 +26,7 @@ class MenuList(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to="menu_images/", blank=True, null=True)
     image_alt = models.CharField(max_length=100)
-    available = models.BooleanField(defalut=True)
+    available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -39,8 +39,8 @@ class OpeningHour(models.Model):
     class Meta:
         ordering = ["id"]  # keeps days in entered order
 
-        def __str__(self):
-            return f"{self.day}: {self.open_time.strftime('%I:%M %p')} - {self.close_time.strftime('%I:%M %p')}"
+    def __str__(self):
+        return f"{self.day}: {self.open_time.strftime('%I:%M %p')} - {self.close_time.strftime('%I:%M %p')}"
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
