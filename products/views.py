@@ -41,3 +41,15 @@ class MenuViewSet(viewsets.ModelViewSet):
                 {"error": str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+# API to filter menu items by category
+class MenuByCategoryAPIView(APIView):
+    def get(self, request):
+        category_name = request.query_params.get("category", None)
+        queryset = Menu.objects.all()
+
+        if category_name:
+            queryset = queryset.filter(category__name__iexact=category_name)
+
+            serializer = MenuSerializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
