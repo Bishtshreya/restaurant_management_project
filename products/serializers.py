@@ -7,6 +7,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = '__all__'
 class MenuSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+    
     class Meta:
         model = Menu
         fields = ["id", "name", "price"]
