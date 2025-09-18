@@ -23,6 +23,7 @@ from rest_framework import generics
 from .models import MenuCategory
 from .serializers import MenuCategorySerializer
 from .serializers import MenuListSerializer
+from utils.validation_utils import is_valid_email
 
 class MenuAPIView(APIView):
     def get(self, request):
@@ -290,3 +291,9 @@ class MenuSearchAPIView(generics.ListAPIView):
         if query:
             return MenuList.objects.filter(name__icontains=query)
         return MenuList.objects.all()
+
+def subscribe(request):
+    email = request.POST.get("email")
+    if not is_valid_email(email):
+        return JsonResponse({"error": "Invalid email"})
+    return JsonResponse({"message": "Subscription successful"})
