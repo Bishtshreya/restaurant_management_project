@@ -1,6 +1,7 @@
 from django import forms
 from .models import Feedback
 from .model import Contact
+from utils.validation_utils import is_valid_email
 
 class ContactForm(forms.ModelForm):
     email = forms.EmailField(
@@ -28,7 +29,13 @@ class ContactForm(forms.ModelForm):
     message = forms.CharField(
         required=True,
         widget=forms.Textarea(attrs={"placeholder": "Enter your message"})
-    )  
+    )
+
+    def cleam_email(self):
+        email = self.cleaned_data.get("email")
+        if not is_valid_email(email):
+            raise forms.ValidationError("Please enter a valid email address.")
+        return email  
 
 class FeedbackForm(forms.ModelForm):
     class Meta:
