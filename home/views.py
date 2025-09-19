@@ -22,7 +22,7 @@ from django.core.paginator import Paginator
 from rest_framework import generics
 from .models import MenuCategory
 from .serializers import MenuCategorySerializer
-from .serializers import MenuListSerializer
+from .serializers import MenuListSerializer, UserProfileSerializer
 from utils.validation_utils import is_valid_email
 
 class MenuAPIView(APIView):
@@ -297,3 +297,11 @@ def subscribe(request):
     if not is_valid_email(email):
         return JsonResponse({"error": "Invalid email"})
     return JsonResponse({"message": "Subscription successful"})
+
+class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        # Only allow the logged-in user to update their profile
+        return self.request.user
