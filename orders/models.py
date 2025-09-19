@@ -14,6 +14,9 @@ class OrderStatus(models.Model):
     def __str__(self):
         return self.name
 
+class ActiveOrderManager(models.Manager):
+    def get_active_orders(self):
+        return self.filter(status__in = ["pending", "processing"])
 
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,6 +27,8 @@ class Order(models.Model):
     status = models.ForeignKey(OrderStatus, on_delete=models.SET_NULL, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = ActiveOrderManager()
 
     def __str__(self):
         return f"Order #{self.id} by {self.customer.username}"
