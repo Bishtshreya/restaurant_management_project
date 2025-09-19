@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import responsefrom rest_framework.permissions import IsAuthenticated
-from rest_framework import status
+from rest_framework import status, genrics, permissions
 
 from .models import Order
 from .serializers import OrderSerializer
@@ -19,3 +19,12 @@ class OrderHistoryView(APIView):
                 {"error": "Unable to fetch order history", "details": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+class OrderRetrieveView(generics.RetrieveAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Only return orders for the logged-in user
+        return Order.objects.filter(customer=self.request.user)
