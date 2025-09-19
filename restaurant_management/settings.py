@@ -154,3 +154,9 @@ CONTACT_EMAL = "info@restaurant.com"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL ="noreply@restaurant.com"
 
+# Example (using Gmail SMTP)
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = turnedEMAIL_HOST_USER = "your_email@gmail.com"
+EMAIL_HOST_PASSWORD = "your_password"   # better: use env var or Django-environ
+
