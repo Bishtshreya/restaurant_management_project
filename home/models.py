@@ -37,7 +37,7 @@ class OpeningHour(models.Model):
     close_time = models.TimeField()
 
     class Meta:
-        ordering = ["id"]  # keeps days in entered order
+        ordering = ["id"]
 
     def __str__(self):
         return f"{self.day}: {self.open_time.strftime('%I:%M %p')} - {self.close_time.strftime('%I:%M %p')}"
