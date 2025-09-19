@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
-from rest_framework.response import responsefrom rest_framework.permissions import IsAuthenticated
+from rest_framework.response import response 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, genrics, permissions
 
 from .models import Order
