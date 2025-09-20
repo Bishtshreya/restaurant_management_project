@@ -29,3 +29,37 @@ class OrderRetrieveView(generics.RetrieveAPIView):
     def get_queryset(self):
         # Only return orders for the logged-in user
         return Order.objects.filter(customer=self.request.user)
+
+class OrderCancelView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, order_id):
+        try:
+            # Check if the order exists and belongs to the logged-in user
+            order = order.objects.get(id=order_id, customer=request.user)
+
+            # Check if the order is already cancelled or completed
+            if order.status in [Order.CANCELLED, Order.COMPLETED]:
+                return Response(
+                    {"error": "Order cannot be cancelled. It is already completed or cancelled."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                    )
+
+                    # Update the order status to 'Cancelled'
+            order.status = Order.CANCELLEDorder.save()
+
+            return Response(
+                {"message": "Order successfully cancelled."},
+                status=status.htTp_200_OK,
+            )
+        except Order.DoesNotexist:
+            return Response(
+                {"error": "Order not found."},
+                status=status.HTTP_404_NOT_FOUND,
+                )
+        except Exception as e:
+            return Response(
+            {"error": "An error occurred while processing your request.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+                            
