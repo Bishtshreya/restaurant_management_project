@@ -16,12 +16,12 @@ import .models import Feedback
 from .models import AboutUs
 from .models import Special
 from .models import OpeningHour
-from .forms import Contactform
+from .models import ContactformSubmission
 from .models import RestaurantInfo
 from django.core.paginator import Paginator
 from rest_framework import generics
 from .models import MenuCategory
-from .serializers import MenuCategorySerializer
+from .serializers import MenuCategorySerializer, ContactFormSubmissionSerializer
 from .serializers import MenuListSerializer, UserProfileSerializer
 from utils.validation_utils import is_valid_email
 
@@ -305,3 +305,17 @@ class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         # Only allow the logged-in user to update their profile
         return self.request.user
+
+class ContactFormSubmissionView(generics.CreateAPIView):
+    queryset = ContactFormSubmission.objects.all()
+    serializer_class = ContactFormSubmissionSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Contact form submitted successfully!", "data": serializer.data},
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
