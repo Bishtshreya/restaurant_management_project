@@ -4,6 +4,7 @@ from .models import Coupon  # Assuming you have a Coupon model
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 import logging
+from .models import Order 
 
 logger = logging.getLogger(__name__)
 
@@ -65,3 +66,18 @@ def send_order_confirmation_email(order_id, customer_email, customer_name, order
                 except Exception as e:
                     logger.error(f"Error sending order confirmation email for order {order_id}: {str(e)}")
                 return False
+
+def generate_unique_order_id(length=8):
+    """
+    Generate a unique alphanumeric ID for orders.
+    Default length is 8 characters.
+    """
+    alphabet = string.ascii_uppercase + string.digits
+
+    while True:
+        # Generate a random string
+        order_id = ''.join(secrets.choice(alphabet) for _ in range(length))
+
+        # Ensure uniqueness by checking against the database
+        if not Order.objects.filter(order_id=order_id).exists():
+            return generate_unique_order_id
