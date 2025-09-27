@@ -15,3 +15,14 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
     model = Order
     fields = ["id", "created_at", "total_amount", "order_status", "order_items"]
+
+class OrderStatusUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['status']
+
+    def validate_status(self, value):
+        allowed_statuses = [choice[0] for choice in Order.STATUS_CHOICES]
+        if value not in allowed_statuses:
+            raise serializers.ValidationError("Invalid status. Allowed: pending, processing, completed.")
+        return value
