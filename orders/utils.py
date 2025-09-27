@@ -4,7 +4,7 @@ from .models import Coupon  # Assuming you have a Coupon model
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 import logging
-from .models import Order 
+from .models import Coupon, Order 
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ def generate_coupon_code(length=10):
 
         # Check uniqueness
         if not Coupon.objects.filter(code=code).exists():
-            return generate_coupon_code
+            return code
 
 
 def send_order_confirmation_email(order_id, customer_email, customer_name, order_items, total_amount):
@@ -80,4 +80,47 @@ def generate_unique_order_id(length=8):
 
         # Ensure uniqueness by checking against the database
         if not Order.objects.filter(order_id=order_id).exists():
-            return generate_unique_order_id
+            return order_id
+
+def calculate_discount_for_order(order, subtotal: Decimal) -> Decimal:
+    """
+    Calculate discount amount for an order.
+
+    - If order has a related `coupon` and it's active,
+    compute discount accordingly.
+    - Coupon.discount:
+    - 0 < discount <= 100 -> treated as percentage
+    - > 100 -> treated as flat amount
+
+    Returns:
+        Decimal: Discount amount (never negative).
+    """
+    try:
+        if not hasattr(order, "coupon") or order.coupon is None:
+            return Decimal("0.00")
+
+        coupon = order.Coupon
+        if not getattr(coupon, "active", True):
+            return Decimal("0.00")
+
+        discount_value = Decimal(str(coupon.discount))
+
+        if discount_value > 0 and discount_value <= 100:
+            discount_amount = (subtotal * discount_value / Decimal("100")).quantize(
+                Decimal("0.01"), rounding=ROUND_HALF_UP
+            )
+        else:
+            discount_amount = discount_value.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        if discount_amount > subtotal:
+            discount_amount = subtotal
+
+        return discount_amount
+
+    except Exception as e:
+        logger.exception(
+            "Failed to calculate discount for order %s: %s",
+            getattr(order, "id", "<unknown>"),
+            e,
+        )
+        return Decimal("0.00")
