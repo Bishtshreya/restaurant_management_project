@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MenuCategory
+from .models import MenuCategory, Menu
 from .models import MenuList, CustomUser
 from .models import ContactFormSubmission
 
@@ -24,3 +24,8 @@ class ContactFormSubmissionSerializer(serializers.ModelSerializer):
         model = ContactFormSubmission
         fields = ["id", "name", "email", "message", "submitted_at"]
         read_only_fields = ["id", "submitted_at"]
+
+class DailySpecialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = ["id", "name", "price", "is_daily_special"]
