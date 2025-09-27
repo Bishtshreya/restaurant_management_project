@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utlis import timezone
-from .models import MenuList, RestaurantLocation
+from .models import Menu, MenuList, RestaurantLocation
 from .forms import ContactForm
 from datetime import datetime, date
 from django.urls import reverse
@@ -319,3 +319,9 @@ class ContactFormSubmissionView(generics.CreateAPIView):
                 status=status.HTTP_201_CREATED,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DailySpecialsView(APIView):
+    def get(self, request):
+        specials = Menu.objects.filter(is_daily_special=True)
+        serializer = DailySpecialSerializer(specials, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
