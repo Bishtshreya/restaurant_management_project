@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, genrics, permissions
 
 from .models import Order
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, OrderDetailSerializer, OrderStatusUpdateSerializer
 
 
 class OrderHistoryView(APIView):
@@ -30,36 +30,21 @@ class OrderRetrieveView(generics.RetrieveAPIView):
         # Only return orders for the logged-in user
         return Order.objects.filter(customer=self.request.user)
 
-class OrderCancelView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+# 3. Update Order Status
+class UpdateOrderStatusView(APIView):
+    permission_classes = [IsAuthenticated]
 
-    def delete(self, request, order_id):
+    def put(self, request, order_id):
         try:
-            # Check if the order exists and belongs to the logged-in user
-            order = order.objects.get(id=order_id, customer=request.user)
+            order = Order.objects.get(id=order_id, customer=request.user)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
 
-            # Check if the order is already cancelled or completed
-            if order.status in [Order.CANCELLED, Order.COMPLETED]:
-                return Response(
-                    {"error": "Order cannot be cancelled. It is already completed or cancelled."},
-                    status=status.HTTP_400_BAD_REQUEST,
-                    )
-
-                    # Update the order status to 'Cancelled'
-            order.status = Order.CANCELLEDorder.save()
-
+        serializer = OrderStatusUpdateSerializer(order, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
             return Response(
-                {"message": "Order successfully cancelled."},
-                status=status.htTp_200_OK,
+                {"message": "Order status updated successfully", "order": serializer.data},
+                status=status.HTTP_200_OK
             )
-        except Order.DoesNotexist:
-            return Response(
-                {"error": "Order not found."},
-                status=status.HTTP_404_NOT_FOUND,
-                )
-        except Exception as e:
-            return Response(
-            {"error": "An error occurred while processing your request.", "details": str(e)},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
-                            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
