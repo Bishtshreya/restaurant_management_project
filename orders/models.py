@@ -39,9 +39,26 @@ class Order(models.Model):
         if not self.order_id:
             self.order_id = generate_unique_order_id()
         super().save(*args, **kwargs)
+    
+    def calculate_total(self):
+        """Calculate the total order amount based on order items."""
+        total = sum(item.subtotal() for item in self.items.all())
+        return total
 
     def __str__(self):
         return f"Order #{self.id} by {self.customer.username}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=6, decimal_places=2)  # copy Menu.price at time of order
+
+    def subtotal(self):
+        return self.quantity * self.price
+
+    def __str__(self):
+        return f"{self.quantity} x {self.menu_item.name}"
 
 class Coupon(models.Model):
     code = models.CharField(max_length=20, unique=True)
