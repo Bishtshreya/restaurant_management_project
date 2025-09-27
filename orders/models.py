@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings 
+from decimal import ecimal 
+from .utils import calcultae_discount_for_order
 from .utlis import generate_unique_order_id
 
 class Menu(models.Model):
@@ -46,6 +48,8 @@ class Order(models.Model):
     # Unique, user-friendly alphanumeric order ID
     order_id = models.CharField(max_length=20, unique=True, blank=True)
 
+    # New optional coupon field  add migrations if you include this
+    coupon = models.ForeignKey("Coupon", null=True, blank=True, on_delete=models.SET_NULL, related_name="orders")
 
     #  New field for linking to OrderStatus
     status = models.ForeignKey(OrderStatus, on_delete=models.SET_NULL, null=True)
@@ -53,18 +57,36 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     objects = ActiveOrderManager()
+
     def save(self, *args, **kwargs):
         if not self.order_id:
             self.order_id = generate_unique_order_id()
+        
+        self.total_amount = self.calculate_total()
         super().save(*args, **kwargs)
     
-    def calculate_total(self):
-        """Calculate the total order amount based on order items."""
-        total = sum(item.subtotal() for item in self.items.all())
-        return total
+    def calculate_total(self) -> Decimal:
+        """
+        Calculate total cost of the order:
+        - Sum (price * quantity) across OrderItem instances related to this order
+        - Apply discount (via calculate_discount_for_order) if applicable
+        - Return Decimal total (>= 0)
+        """
+        subtotal = Decimal("0.00")
+        # `items` is the related_name on OrderItem in our previous examples
+        for oi in self.items.all():            # OrderItem has related_name="items"
+            price = Decimal(str(oi.price or 0))
+            qty = int(oi.quantity or 0)
+            subtotal += (price * qty)
 
-    def __str__(self):
-        return f"Order #{self.id} by {self.customer.username}"
+        # Compute discount amount (safe; function returns Decimal)
+        discount_amount = calculate_discount_for_order(self, subtotal)
+
+        total = subtotal - discount_amount
+        if total < Decimal("0.00"):
+            total = Decimal("0.00")
+        # Round to two decimals
+        return total.quantize(Decimal("0.01"))  
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
