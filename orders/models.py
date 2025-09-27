@@ -20,6 +20,24 @@ class ActiveOrderManager(models.Manager):
     def get_active_orders(self):
         return self.filter(status__in = ["pending", "processing"])
 
+class OrderManager(models.Manager):
+    def with_status(self, status_name):
+        """Return orders filtered by a given status name (case-insensitive)."""
+        return self.filter(status__name__iexact=status_name)
+
+    def pending(self):
+        """Shortcut for pending orders."""
+        return self.with_status("pending")
+
+    def processing(self):
+        """Shortcut for processing orders."""
+        return self.with_status("processing")
+
+    def completed(self):
+        """Shortcut for completed orders."""
+        return self.with_status("completed")
+
+
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     order_items = models.ManyToManyField(Menu)
