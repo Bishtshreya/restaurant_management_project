@@ -10,8 +10,10 @@ class CustomUser(AbstractUser):
 #  Menu Category Model
 class MenuCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
+
     class Meta:
         verbose_name_plural = "Menu Categories"
+
     def __str__(self):
         return self.name
 
@@ -112,3 +114,11 @@ class ContactFormSubmission(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.email}"
+
+class Menu(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    is_daily_special = models.BooleanField(default=False)  #  new field
+
+    def __str__(self):
+        return self.related_name
