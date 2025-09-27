@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import feeeback_view
 from .views import MenuCategoryListView, ContactFormSubmissionView
-from .views import MenuSearchAPIView, UserProfileUpdateView, dailySpecialsView
+from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView
 
 
 urlpatterns = [
