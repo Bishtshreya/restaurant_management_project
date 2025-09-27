@@ -4,6 +4,7 @@ from .models import Coupon  # Assuming you have a Coupon model
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 import logging
+from decimal import Decimal, ROUND_HALF_UP
 from .models import Coupon, Order 
 
 logger = logging.getLogger(__name__)
