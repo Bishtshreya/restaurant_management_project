@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import OrderHistoryView, OrderRetriveView, OrderCancelView
+from .views import OrderHistoryView, OrderRetriveView, UpdateOrderStatusView
 
 urlpatterns = [
     path("history/", OrderHistoryView.as_view(), name="order-history"),
     path("<int:pk>/", OrderRetriveView.as_view(), name="order-detail"),
-    path("orders/cancel/<int:pk>/", OrderCancelView.as_view, name="order-cancel")
+    path("update-status/", UpdateOrderStatusView.as_view(), name="update-order-status"),
 ]
     
