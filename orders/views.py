@@ -3,7 +3,7 @@ from rest_framework.response import response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, genrics, permissions
 
-from .models import Order
+from .models import Order, OrderStatus
 from .serializers import OrderSerializer, OrderDetailSerializer, OrderStatusUpdateSerializer
 
 
@@ -40,11 +40,20 @@ class UpdateOrderStatusView(APIView):
         except Order.DoesNotExist:
             return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = OrderStatusUpdateSerializer(order, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"message": "Order status updated successfully", "order": serializer.data},
-                status=status.HTTP_200_OK
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        new_status = request.data.get("new_status")
+
+        if not new_status:
+            return Response({"error": "new_status is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            status_obj = OrderStatus.objects.get(name__iexact=new_status)
+        except OrderStatus.DoesNotExist:
+            return Response({"error": f"Invalid status '{new_status}'"}, status=status.HTTP_400_BAD_REQUEST)
+
+        order.status = status_obj
+        order.save()
+
+        return Response(
+            {"message": f"Order #{order.id} status updated to '{new_status}'."},
+            status=status.HTTP_200_OK,
+        )
