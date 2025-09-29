@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import feeeback_view
 from .views import MenuCategoryListView, ContactFormSubmissionView
-from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView
+from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView, UserReviewCreateView, UserReviewListView
 
 
 urlpatterns = [
@@ -33,4 +33,6 @@ urlpatterns = [
     path("profile/", UserProfileUpdateView.as_view(), name ="user-profile-update"),
     path("api/contact/", ContactFormSubmissionView.as_view(), name="contact-form"),
     path("daily-specials/", DailySpecialsView.as_view(), name="daily-specials"),
+    path("reviews/create/", UserReviewCreateView.as_view(), name="create-review"),
+    path("reviews/<int:menu_item_id>/", UserReviewListView.as_view(), name="menu-item-reviews"),
 ]
