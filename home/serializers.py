@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import MenuCategory, Menu
 from .models import MenuList, CustomUser
-from .models import ContactFormSubmission
+from .models import ContactFormSubmission, UserReview
 
 class MenuCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,3 +29,15 @@ class DailySpecialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
         fields = ["id", "name", "price", "is_daily_special"]
+
+class UserReviewSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)  # Display username instead of ID
+
+    class Meta:
+        model = UserReview
+        fields = ["id", "menu_item", "user", "rating", "comment", "created_at"]
+
+    def validate_rating(self, value):
+        if value < 1 or value > 5:
+            raise serializers.ValidationError("Rating must be between 1 and 5.")
+        return value
