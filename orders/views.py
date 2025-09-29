@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import response 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, genrics, permissions
+from rest_framework.decorators import api_view, permission_classes
 
 from .models import Order, OrderStatus
 from .serializers import OrderSerializer, OrderDetailSerializer, OrderStatusUpdateSerializer
@@ -57,3 +58,23 @@ class UpdateOrderStatusView(APIView):
             {"message": f"Order #{order.id} status updated to '{new_status}'."},
             status=status.HTTP_200_OK,
         )
+
+# 4. Get Order Status (Function-Based View)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_order_status(request, order_id):
+    """
+    Retrieve the current status of an order by ID.
+    """
+    try:
+        order = Order.objects.get(id=order_id, customer=request.user)
+    except Order.DoesNotExist:
+        return Response(
+            {"error": "Order not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    return Response(
+        {"order_id": order.id, "status": str(order.status)},
+        status=status.HTTP_200_OK
+    )
