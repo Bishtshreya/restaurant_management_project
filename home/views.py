@@ -14,15 +14,15 @@ import random
 import .forms import FeedbackForm
 import .models import Feedback
 from .models import AboutUs
-from .models import Special
+from .models import Special, UserReview
 from .models import OpeningHour
 from .models import ContactformSubmission
 from .models import RestaurantInfo
 from django.core.paginator import Paginator
-from rest_framework import generics
+from rest_framework import generics, permissions
 from .models import MenuCategory
 from .serializers import MenuCategorySerializer, ContactFormSubmissionSerializer
-from .serializers import MenuListSerializer, UserProfileSerializer
+from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer
 from utils.validation_utils import is_valid_email
 
 class MenuAPIView(APIView):
@@ -325,3 +325,21 @@ class DailySpecialsView(APIView):
         specials = Menu.objects.filter(is_daily_special=True)
         serializer = DailySpecialSerializer(specials, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Create a new review
+class UserReviewCreateView(generics.CreateAPIView):
+    serializer_class = UserReviewSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+# Get all reviews for a specific menu item
+class UserReviewListView(generics.ListAPIView):
+    serializer_class = UserReviewSerializer
+    permission_classes = [permissions.AllowAny]  # Anyone can see reviews
+
+    def get_queryset(self):
+        menu_item_id = self.kwargs.get("menu_item_id")
+        return UserReview.objects.filter(menu_item_id=menu_item_id).order_by("-created_at")
