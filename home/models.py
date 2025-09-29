@@ -122,3 +122,16 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.related_name
+
+class UserReview(models.Model):
+    menu_item = models.ForeignKey("Menu", on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField()  # e.g., 15
+    comment = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("menu_item", "user")  # 1 review per user per item
+
+    def __str__(self):
+        return f"Review by {self.user.username} on {self.menu_item.name}"
