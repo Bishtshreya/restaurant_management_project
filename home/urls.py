@@ -1,10 +1,13 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from rest_framework.routers import DefaultRouter
 from . import views
 from .views import feeeback_view
-from .views import MenuCategoryListView, ContactFormSubmissionView
+from .views import MenuCategoryListView, MenuCategoryViewSet ContactFormSubmissionView
 from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView, UserReviewCreateView, UserReviewListView
 
+router = DefaultRouter()
+router.register(r'menu-categories', MenuCategoryViewSet, basename='menu-category')
 
 urlpatterns = [
     path('contact/', views.contact_us, name="contact"),
@@ -35,4 +38,5 @@ urlpatterns = [
     path("daily-specials/", DailySpecialsView.as_view(), name="daily-specials"),
     path("reviews/create/", UserReviewCreateView.as_view(), name="create-review"),
     path("reviews/<int:menu_item_id>/", UserReviewListView.as_view(), name="menu-item-reviews"),
+    path('', include(router.urls)),
 ]
