@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -19,7 +20,7 @@ from .models import OpeningHour
 from .models import ContactformSubmission
 from .models import RestaurantInfo
 from django.core.paginator import Paginator
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from .models import MenuCategory
 from .serializers import MenuCategorySerializer, ContactFormSubmissionSerializer
 from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer
@@ -281,6 +282,11 @@ def reservations(request):
 class MenuCategoryListView(generics.ListAPIView):
     queryset = MenuCategory.objects.all()
     serializers_class = MenuCategorySerializer
+
+class MenuCategoryViewSet(viewsets.ModelViewSet):
+    queryset = MenuCategory.objects.all()
+    serializer_class = MenuCategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 #  API for searching menu items
 class MenuSearchAPIView(generics.ListAPIView):
