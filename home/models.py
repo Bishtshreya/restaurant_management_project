@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from .models import Menu
+from django.contrib.auth.models import User
 
 class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True)
@@ -129,9 +131,11 @@ class UserReview(models.Model):
     rating = models.IntegerField()  # e.g., 15
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    review_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ("menu_item", "user")  # 1 review per user per item
+        ordering = [ "-review_date"]
 
     def __str__(self):
-        return f"Review by {self.user.username} on {self.menu_item.name}"
+        return f"Review by {self.user.username} on {self.menu_item.name} ({self.rating})"
