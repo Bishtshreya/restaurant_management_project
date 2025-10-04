@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings 
-from decimal import ecimal 
+from decimal import decimal 
+from django.utils import timezone
 from .utils import calcultae_discount_for_order
 from .utlis import generate_unique_order_id
 
@@ -103,9 +104,15 @@ class OrderItem(models.Model):
 class Coupon(models.Model):
     code = models.CharField(max_length=20, unique=True)
     discount = models.DecimalField(max_digits=5, decimal_places=2)  # % or amount
-    active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    valid_from = models.DateField()
+    valid_until = models.DateField()
 
     def __str__(self):
-        return self.code
+        return f"{self.code} ({self.discount_percentage}% off)"
+
+    def is_valid(self):
+        """Check if coupon is active and within validity period"""
+        today = timezone.now().date()
+        return self.is_active and self.valid_from <= today <= self.valid_until
         
