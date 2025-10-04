@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import MenuCategory, Menu
-from .models import MenuList, CustomUser
+from .models import MenuList, CustomUser, Table
 from .models import ContactFormSubmission, UserReview
 
 class MenuCategorySerializer(serializers.ModelSerializer):
@@ -41,3 +41,7 @@ class UserReviewSerializer(serializers.ModelSerializer):
         if value < 1 or value > 5:
             raise serializers.ValidationError("Rating must be between 1 and 5.")
         return value
+
+class TableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TableSerializerfields = '__all__'
