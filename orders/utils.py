@@ -7,6 +7,7 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal, ROUND_HALF_UP
 from .models import Coupon, Order, OrderStatus
+from django.db.models import Sum
 
 logger = logging.getLogger(__name__)
 
@@ -169,4 +170,23 @@ def update_order_status(order_id, new_status):
         "old_status": old_status,
         "new_status": str(order.status),
     }
+
+def get_daily_sales_total(date):
+    """
+    Calculates the total sales for a specific date.
+
+    Args:
+        date (datetime.date): The date for which to calculate total sales.
+
+    Returns:
+        Decimal: Total sales amount for that date. Returns 0 if no orders found.
+    """
+    total = (
+        Order.objects.filter(created_at__date=date)
+        .aggregate(total_sum=Sum('total_price'))
+        .get('total_sum')
+    )
+
+    return total or 0
+   
 
