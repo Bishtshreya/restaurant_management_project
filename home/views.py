@@ -14,7 +14,7 @@ from django.urls import reverse
 import random
 import .forms import FeedbackForm
 import .models import Feedback
-from .models import AboutUs
+from .models import AboutUs, Table
 from .models import Special, UserReview
 from .models import OpeningHour
 from .models import ContactformSubmission
@@ -22,7 +22,7 @@ from .models import RestaurantInfo
 from django.core.paginator import Paginator
 from rest_framework import generics, permissions, viewsets
 from .models import MenuCategory
-from .serializers import MenuCategorySerializer, ContactFormSubmissionSerializer
+from .serializers import MenuCategorySerializer, TableSerializer ContactFormSubmissionSerializer
 from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer
 from utils.validation_utils import is_valid_email
 
@@ -349,3 +349,11 @@ class UserReviewListView(generics.ListAPIView):
     def get_queryset(self):
         menu_item_id = self.kwargs.get("menu_item_id")
         return UserReview.objects.filter(menu_item_id=menu_item_id).order_by("-created_at")
+
+class TableDetailView(generics.RetrieveAPIView):
+    """
+    API endpoint to retrieve details of a single table by ID.
+    """
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
+    
