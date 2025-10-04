@@ -1,10 +1,11 @@
 from rest_framework.views import APIView
-from rest_framework.response import response 
+from rest_framework.response import Response 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, genrics, permissions
 from rest_framework.decorators import api_view, permission_classes
 
-from .models import Order, OrderStatus
+from .models import Order, OrderStatus, Coupon
+from django.utils import timezone
 from .serializers import OrderSerializer, OrderDetailSerializer, OrderStatusUpdateSerializer
 
 
@@ -78,3 +79,35 @@ def get_order_status(request, order_id):
         {"order_id": order.id, "status": str(order.status)},
         status=status.HTTP_200_OK
     )
+
+class CouponValidationView(APIView):
+    """
+    API endpoint to validate a coupon code.
+    """
+
+    def post(self, request):
+        code = request.data.get('code', '').strip()
+
+        if not code:
+            return Response({'error': 'Coupon code is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            coupon = Coupon.objects.get(code__iexact=code)
+        except Coupon.DoesNotExist:
+            return Response({'error': 'Invalid coupon code.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        today = timezone.now().date()
+
+        # Validation checks
+        if not coupon.is_active:
+            return Response({'error': 'Coupon is inactive.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not (coupon.valid_from <= today <= coupon.valid_until):
+            return Response({'error': 'Coupon has expired or is not yet valid.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({
+            'message': 'Coupon is valid.',
+                'code': coupon.code,
+                'discount_percentage': float(coupon.discount_percentage)
+        }, status=status.HTTP_200_OK)
+                            
