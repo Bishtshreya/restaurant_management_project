@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 from . import views
-from .views import feeeback_view, TableDetailView
+from .views import feeeback_view, TableDetailView, AvailableTablesAPIView
 from .views import MenuCategoryListView, MenuCategoryViewSet ContactFormSubmissionView
 from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView, UserReviewCreateView, UserReviewListView
 
@@ -40,4 +40,5 @@ urlpatterns = [
     path("reviews/<int:menu_item_id>/", UserReviewListView.as_view(), name="menu-item-reviews"),
     path('', include(router.urls)),
     path('tables/<int:pk>/', TableDetailView.as_view(), name='table-detail'),
+    path('api/tables/available/', AvailableTablesAPIView.as_view(), name='available_tables_api'),
 ]
