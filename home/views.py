@@ -340,7 +340,6 @@ class UserReviewCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
 # Get all reviews for a specific menu item
 class UserReviewListView(generics.ListAPIView):
     serializer_class = UserReviewSerializer
@@ -356,4 +355,3 @@ class TableDetailView(generics.RetrieveAPIView):
     """
     queryset = Table.objects.all()
     serializer_class = TableSerializer
-    
