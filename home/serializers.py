@@ -44,4 +44,5 @@ class UserReviewSerializer(serializers.ModelSerializer):
 
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TableSerializerfields = '__all__'
+        model = Table
+        fields = ['id', 'table_number', 'capacity', 'is_available']
