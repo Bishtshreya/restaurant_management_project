@@ -355,3 +355,14 @@ class TableDetailView(generics.RetrieveAPIView):
     """
     queryset = Table.objects.all()
     serializer_class = TableSerializer
+
+class AvailableTablesAPIView(generics.ListAPIView):
+    """
+    API endpoint that returns a list of currently available tables.
+    """
+    serializer_class = TableSerializer
+
+    def get_queryset(self):
+        # Return only tables that are available
+        return Table.objects.filter(is_available=True)
+        
