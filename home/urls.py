@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 from . import views
 from .views import feeeback_view, TableDetailView, AvailableTablesAPIView, RestaurantInfoAPIView
-from .views import MenuCategoryListView, MenuCategoryViewSet ContactFormSubmissionView
+from .views import MenuCategoryListView, MenuCategoryViewSet ContactFormSubmissionView, UpdateMenuItemAvailabilityAPIView
 from .views import MenuSearchAPIView, UserProfileUpdateView, DailySpecialsView, UserReviewCreateView, UserReviewListView
 
 router = DefaultRouter()
@@ -42,4 +42,5 @@ urlpatterns = [
     path('tables/<int:pk>/', TableDetailView.as_view(), name='table-detail'),
     path('api/tables/available/', AvailableTablesAPIView.as_view(), name='available_tables_api'),
     path('api/restaurant/info/', RestaurantInfoAPIView.as_view(), name='restaurant_info'),
+    path('api/menu/<int:pk>/availability/', UpdateMenuItemAvailabilityAPIView.as_view(), name='update_menu_availability'),
 ]
