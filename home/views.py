@@ -21,9 +21,9 @@ from .models import ContactformSubmission
 from .models import RestaurantInfo
 from django.core.paginator import Paginator
 from rest_framework import generics, permissions, viewsets
-from .models import MenuCategory
+from .models import MenuCategory, MenuItem
 from .serializers import MenuCategorySerializer, TableSerializer, ContactFormSubmissionSerializer, RestaurantSerializer
-from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer
+from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer, MenuItemAvailabilitySerializer
 from utils.validation_utils import is_valid_email
 
 class MenuAPIView(APIView):
@@ -376,5 +376,35 @@ class RestaurantInfoAPIView(generics.GenericAPIView):
 
         serializer = self.get_serializer(restaurant)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class UpdateMenuItemAvailabilityAPIView(APIView):
+    """
+    API endpoint to update a menu item's availability status.
+    """
+
+    def patch(self, request, pk):
+        menu_item = get_object_or_404(MenuItem, pk=pk)
+        is_available = request.data.get('is_available')
+
+        # Validate the input
+        if is_available is None:
+            return Response(
+                {"error": "Field 'is_available' is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+            # Convert string 'true'/'false' to boolean if needed
+            if isinstance(is_available, str):
+                is_available = is_available.lower() in ['true', '1', 'yes']
+
+            menu_item.is_available = is_available
+            menu_item.save()
+
+            serializer = MenuItemAvailabilitySerializer(menu_item)
+            return Response(
+                {"message": "Menu item availability updated successfully.", "data": serializer.data},
+                status=status.HTTP_200_OK
+            )
+
 
         
