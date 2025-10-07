@@ -14,6 +14,7 @@ class CustomUser(AbstractUser):
 #  Menu Category Model
 class MenuCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=true, null=True)
 
     class Meta:
         verbose_name_plural = "Menu Categories"
