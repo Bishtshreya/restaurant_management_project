@@ -7,6 +7,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuCategory
         fields = ["id", "name"]
+        
 class MenuListSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuList
