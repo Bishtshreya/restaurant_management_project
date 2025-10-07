@@ -22,7 +22,7 @@ from .models import RestaurantInfo
 from django.core.paginator import Paginator
 from rest_framework import generics, permissions, viewsets
 from .models import MenuCategory
-from .serializers import MenuCategorySerializer, TableSerializer ContactFormSubmissionSerializer
+from .serializers import MenuCategorySerializer, TableSerializer, ContactFormSubmissionSerializer, RestaurantSerializer
 from .serializers import MenuListSerializer, UserProfileSerializer, UserReviewSerializer
 from utils.validation_utils import is_valid_email
 
@@ -365,4 +365,16 @@ class AvailableTablesAPIView(generics.ListAPIView):
     def get_queryset(self):
         # Return only tables that are available
         return Table.objects.filter(is_available=True)
+
+class RestaurantInfoAPIView(generics.GenericAPIView):
+    serializer_class = RestaurantSerializer
+
+    def get(self, request):
+        restaurant = Restaurant.objects.first()
+        if not restaurant:
+            return Response({"error": "Restaurant information not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(restaurant)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
         
