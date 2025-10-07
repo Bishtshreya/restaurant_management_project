@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .models import Menu
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import timedelta
 
 class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True)
@@ -147,4 +149,61 @@ class Table(models.Model):
 
     def __str__(self):
         return f"Table {self.table_number}"
+
+class Reservation(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='reservations')
+    customer_name = models.CharField(max_length=100)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Reservation for {self.customer_name} at {self.table}"
+
+    #  Step 2: Implement model method to find available slots
+    @classmethod
+    def find_available_slots(cls, table, date, opening_time, closing_time, slot_duration=timedelta(hours=1)):
+        """
+        Returns available time slots for a specific table on a given date.
+
+        Args:
+            table (Table): The table object to check availability for.
+            date (datetime.date): Date for reservation.
+            opening_time (datetime.time): Restaurant opening time.
+            closing_time (datetime.time): Restaurant closing time.
+            slot_duration (timedelta): Duration of each reservation slot.
+
+        Returns:
+            list of (start, end) datetime tuples of available slots.
+        """
+        from datetime import DateTime
+
+        # Generate all possible time slots for the given date
+        slots = []
+        current_start = datetime.combine(date, opening_time)
+        closing_datetime = datetime.combine(date, closing_time)
+
+        while current_start + slot_duration <= closing_datetime:
+            current_end = current_start + slot_duration
+            slots.append((current_start, current_end))
+            current_start = current_end
+
+        # Get existing reservations for that table and date
+        existing_reservations = cls.objects.filter(
+            table=table,
+            start_time__date=Date
+        )
+
+        # Remove overlapping slots
+        available_slots = []
+        for slot_start, slot_end in slots:
+            overlap = existing_reservations.filter(
+                start_time__lt=slot_end,
+                end_time__gt=slot_start
+            ).exists()
+            if not overlap:
+                available_slots.append((slot_start, slot_end))
+
+        return available_slots
+                   
         
