@@ -188,5 +188,42 @@ def get_daily_sales_total(date):
     )
 
     return total or 0
+
+def calculate_order_total(order_items):
+    """
+    Calculate the total price of an order.
+
+    Args:
+        order_items (list): A list of dictionaries or objects where each item
+                            has 'price' and 'quantity' attributes or keys.
+
+                            Example:
+                            [
+                                {'price': 120.50, 'quantity': 2},
+                                {'price': 80.00, 'quantity': 1},
+                            ]
+
+    Returns:
+        float: The total cost of all items combined.
+               Returns 0.0 if the list is empty or invalid.
+    """
+
+    # Handle empty or invalid order list
+    if not order_items:
+        return 0.0
+
+    total = 0.0
+
+    # Loop through each item and sum up (price * quantity)
+    for item in order_items:
+        try:
+            price = float(getattr(item, 'price', item.get('price', 0)))
+            quantity = int(getattr(item, 'quantity', item.get('quantity', 0)))
+            total += price * quantity
+        except (AttributeError, ValueError, TypeError):
+            # Skip items that are missing required fields
+            continue
+
+    return round(total, 2)
    
 
