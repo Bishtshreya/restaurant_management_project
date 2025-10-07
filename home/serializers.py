@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MenuCategory, Menu
+from .models import MenuCategory, Menu, Restaurant
 from .models import MenuList, CustomUser, Table
 from .models import ContactFormSubmission, UserReview
 
@@ -12,7 +12,6 @@ class MenuListSerializer(serializers.ModelSerializer):
         model = MenuList
         fields = ["id", "name", "description", "price", "image", "available"]
         
-
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -46,3 +45,8 @@ class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
         fields = ['id', 'table_number', 'capacity', 'is_available']
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = ['id', 'name', 'address', 'phone_number', 'opening_hours', 'description', 'email', 'website']
